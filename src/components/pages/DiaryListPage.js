@@ -12,6 +12,7 @@ const DiaryListPage = () => {
   return (
     <div>
       <h1>Diary List</h1>
+      <p>日記一覧</p>
       <ul>
         {diaries.map(diary => (
           <li key={diary.id}>
