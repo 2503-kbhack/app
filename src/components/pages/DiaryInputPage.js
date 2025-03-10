@@ -1,56 +1,87 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
+// ランダム表示したいアイコンの候補
+const ICONS = ['👍', '❤️', '🌈', '✨', '👏', '👼','🥹', '🎊', '🙌'];
+
 const DiaryInputPage = () => {
-  const [recording, setRecording] = useState(false);  // 録音中かどうか
-  const [audioLevel, setAudioLevel] = useState(0);    // 音量のレベル (0〜1の範囲を想定)
-  
+  const [recording, setRecording] = useState(false);    // 録音中かどうか
+  const [audioLevel, setAudioLevel] = useState(0);      // 音量レベル (0〜1の範囲)
+  const [icon, setIcon] = useState(null);               // ランダム表示するアイコン
+  const [face, setFace] = useState('(・_・)');          // キャラクターの表情
+
   const audioContextRef = useRef(null);
   const analyserRef = useRef(null);
   const dataArrayRef = useRef(null);
   const rafIdRef = useRef(null);
 
-  // 顔のイメージを切り替えるための関数
-  const getFaceExpression = (level) => {
-    // ここでは簡単にレベルに応じて文字を変化させます
-    // 実際は <img src="..." /> などの切り替えでもOK
+  // 「話している」かどうか（true/false）を管理するためのフラグ
+  const isSpeakingRef = useRef(false);
+
+  // 「静かになったフレーム数」をカウントする
+  const quietFramesRef = useRef(0);
+
+  // ======= しきい値 =======
+  // 1) "音が小さい" とみなす閾値 (これ未満で静か)
+  const QUIET_THRESHOLD = 0.05;
+  // 2) "話し始めた" とみなす閾値 (これ以上で話している)
+  const SPEAK_THRESHOLD = 0.1;
+  // 3) 静かが何フレーム連続したら「途切れた」とみなすか
+  const MIN_QUIET_FRAMES = 30; // 1フレームだけ静かならすぐ「途切れた」と判定
+
+  /**
+   * 音量に応じて表情を変化させる (小さな声でも変わりやすいしきい値設定)
+   * @param {number} level 0〜1の音量レベル
+   */
+  const updateFaceExpression = (level) => {
     if (level > 0.7) {
-      return 'ヽ(ﾟДﾟ)ﾉ';    // びっくり顔
-    } else if (level > 0.3) {
-      return '(｀・ω・´)';  // ちょっと集中した顔
+      setFace('*･゜ﾟ･*:.｡..｡.:*･(*ﾟ▽ﾟ*)･*:.｡. .｡.:*･゜ﾟ･*',);      // びっくり顔
+    } else if (level > 0.5) {
+      setFace('ヾ(๑╹◡╹)ﾉ"');    // 小声でも変化
+    }  else if (level > 0.05) {
+      setFace('（＾Ｏ＾☆♪');    // 小声でも変化
     } else {
-      return '(・_・)';      // 通常の顔
+      setFace('(・_・)');       // 通常の顔
     }
   };
 
+  /**
+   * ランダムなアイコンを1秒間だけ表示する
+   */
+  const showRandomIcon = () => {
+    const random = Math.floor(Math.random() * ICONS.length);
+    setIcon(ICONS[random]);
+    // 2秒後にアイコンを消す
+    setTimeout(() => setIcon(null), 2000);
+  };
+
+  /**
+   * 録音開始
+   */
   const startRecording = async () => {
     try {
-      // マイクへのアクセス権をユーザーにリクエスト
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-
-      // AudioContext を生成
       audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
       const source = audioContextRef.current.createMediaStreamSource(stream);
 
-      // AnalyserNode を作成
       analyserRef.current = audioContextRef.current.createAnalyser();
       analyserRef.current.fftSize = 2048;
       dataArrayRef.current = new Uint8Array(analyserRef.current.fftSize);
 
-      // ソースとアナライザーを接続
       source.connect(analyserRef.current);
 
       setRecording(true);
     } catch (error) {
       console.error('Error accessing microphone:', error);
-      alert('マイクへのアクセスが許可されていない、または何らかのエラーが発生しました。');
+      alert('マイクへのアクセスが許可されていない、またはエラーが発生しました。');
     }
   };
 
+  /**
+   * 録音停止
+   */
   const stopRecording = () => {
     setRecording(false);
-
-    // AudioContext やループの後処理
     if (audioContextRef.current) {
       audioContextRef.current.close();
       audioContextRef.current = null;
@@ -59,37 +90,74 @@ const DiaryInputPage = () => {
       cancelAnimationFrame(rafIdRef.current);
       rafIdRef.current = null;
     }
+    // 表情・音量・フラグをリセット
+    setAudioLevel(0);
+    setFace('(・_・)');
+    isSpeakingRef.current = false;
+    quietFramesRef.current = 0;
   };
 
-  // 音声レベルを解析してステートに反映するためのループ
+  /**
+   * 音声をリアルタイム解析し、音量に応じて画面を更新するループ
+   */
   const analyzeAudio = () => {
     if (analyserRef.current && dataArrayRef.current) {
       analyserRef.current.getByteTimeDomainData(dataArrayRef.current);
 
-      // time domain のデータを使って、大まかな音量レベルを計算する例
-      // 値は 0-255 の範囲を想定
+      // time-domain データから大まかな音量レベルを算出 (0～1)
       let sum = 0;
       for (let i = 0; i < dataArrayRef.current.length; i++) {
-        const val = dataArrayRef.current[i] - 128;  // 中心を 128 として振り幅を計算
+        const val = dataArrayRef.current[i] - 128;
         sum += Math.abs(val);
       }
-      // 平均音量を 0-1 の範囲に正規化
-      const avg = sum / dataArrayRef.current.length;
-      const normalized = avg / 128; // 128 が最大の振り幅
+      const avg = sum / dataArrayRef.current.length; // 0～128
+      const normalized = avg / 128;                  // 0～1
 
       setAudioLevel(normalized);
+      updateFaceExpression(normalized);
+
+      // =========================
+      // 音声が途切れたかどうかの判定
+      // =========================
+      if (isSpeakingRef.current) {
+        // すでに「話している」と認識している状態
+        if (normalized < QUIET_THRESHOLD) {
+          // 小さな音が連続したら、話が途切れたと判定
+          quietFramesRef.current += 1;
+          if (quietFramesRef.current >= MIN_QUIET_FRAMES) {
+            isSpeakingRef.current = false;
+            quietFramesRef.current = 0;
+            showRandomIcon(); // アイコン表示
+          }
+        } else {
+          // まだ声が出ているのでカウントリセット
+          quietFramesRef.current = 0;
+        }
+      } else {
+        // 「話していない」状態
+        if (normalized > SPEAK_THRESHOLD) {
+          // しきい値超えたら「話し始めた」と判定
+          isSpeakingRef.current = true;
+          quietFramesRef.current = 0;
+        }
+      }
     }
-    // 次のフレームで再度呼び出す
+
+    // 次フレームで再度実行
     rafIdRef.current = requestAnimationFrame(analyzeAudio);
   };
 
-  // recording が true になったら解析を開始し、false になったら停止
+  /**
+   * recording が true になったら音声解析開始、false になったら停止
+   */
   useEffect(() => {
     if (recording) {
       analyzeAudio();
     } else {
-      // 停止時には値をリセット
       setAudioLevel(0);
+      updateFaceExpression(0);
+      isSpeakingRef.current = false;
+      quietFramesRef.current = 0;
     }
 
     return () => {
@@ -105,16 +173,18 @@ const DiaryInputPage = () => {
       <h1>Diary Input</h1>
       <p>ここで音声を入力</p>
 
-      {/* ボタン：録音中でなければ「録音開始」、録音中なら「録音停止」 */}
       {!recording ? (
         <button onClick={startRecording}>Start Recording</button>
       ) : (
         <button onClick={stopRecording}>Stop Recording</button>
       )}
 
-      {/* キャラクターの顔を表示（音声レベルに応じて表情を変更） */}
-      <div style={{ fontSize: '2rem', margin: '1rem 0' }}>
-        {getFaceExpression(audioLevel)}
+      {/* 顔とアイコンを横並びにして、アイコンを右に配置 */}
+      <div style={{ display: 'flex', alignItems: 'center', fontSize: '2rem', margin: '1rem 0' }}>
+        <div>{face}</div>
+        {icon && (
+          <div style={{ marginLeft: '1rem' }}>{icon}</div>
+        )}
       </div>
 
       <Link to="/diaries/:id/edit">Create</Link>
