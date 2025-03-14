@@ -3,16 +3,43 @@ import { useState, useRef, useEffect } from 'react';
 function useAudioRecorder({ onSilence } = {}) {
   const [recording, setRecording] = useState(false);
   const [audioLevel, setAudioLevel] = useState(0);
+  const [transcript, setTranscript] = useState("");
   const audioContextRef = useRef(null);
   const analyserRef = useRef(null);
   const dataArrayRef = useRef(null);
   const rafIdRef = useRef(null);
   const quietFramesRef = useRef(0);
   const isSpeakingRef = useRef(false);
+  const recognitionRef = useRef(null);
 
   const QUIET_THRESHOLD = 0.05;
   const SPEAK_THRESHOLD = 0.1;
   const MIN_QUIET_FRAMES = 30;
+
+  useEffect(() => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = 'ja-JP';
+      recognition.onresult = (event) => {
+        let finalTranscript = "";
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          if (event.results[i].isFinal) {
+            finalTranscript += event.results[i][0].transcript;
+          }
+        }
+        setTranscript(prev => prev + finalTranscript);
+      };
+      recognitionRef.current = recognition;
+    }
+    return () => {
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
+    };
+  }, []);
 
   const startRecording = async () => {
     try {
@@ -26,6 +53,10 @@ function useAudioRecorder({ onSilence } = {}) {
 
       source.connect(analyserRef.current);
       setRecording(true);
+
+      if (recognitionRef.current) {
+        recognitionRef.current.start();
+      }
     } catch (error) {
       console.error('Error accessing microphone:', error);
       alert('マイクへのアクセスが許可されていない、またはエラーが発生しました。');
@@ -45,6 +76,10 @@ function useAudioRecorder({ onSilence } = {}) {
     setAudioLevel(0);
     isSpeakingRef.current = false;
     quietFramesRef.current = 0;
+
+    if (recognitionRef.current) {
+      recognitionRef.current.stop();
+    }
   };
 
   const analyzeAudio = () => {
@@ -95,7 +130,7 @@ function useAudioRecorder({ onSilence } = {}) {
     };
   }, [recording]);
 
-  return { recording, audioLevel, startRecording, stopRecording };
+  return { recording, audioLevel, transcript, startRecording, stopRecording };
 }
 
 export default useAudioRecorder;

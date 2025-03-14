@@ -35,7 +35,7 @@ const DiaryInputPage = () => {
   };
 
   // カスタムフックの利用
-  const { recording, audioLevel, startRecording, stopRecording } = useAudioRecorder({
+  const { recording, audioLevel, transcript, startRecording, stopRecording } = useAudioRecorder({
     onSilence: showRandomIcon
   });
 
@@ -54,6 +54,12 @@ const DiaryInputPage = () => {
       ) : (
         <button onClick={stopRecording}>Stop Recording</button>
       )}
+
+      {/* transcript のリアルタイム表示 */}
+      <div>
+        <strong>Transcript:</strong>
+        <p>{transcript}</p>
+      </div>
 
       {/* 顔とアイコンを横並びにして、アイコンを右に配置 */}
       <div style={{ display: 'flex', alignItems: 'center', fontSize: '2rem', margin: '1rem 0' }}>
