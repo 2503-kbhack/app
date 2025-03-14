@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LoginPage from './components/pages/LoginPage';
 import HomePage from './components/pages/HomePage';
 import DiaryListPage from './components/pages/DiaryListPage';
 import DiaryDetailPage from './components/pages/DiaryDetailPage';
@@ -15,7 +16,8 @@ function App() {
         <Route path="/diaries/:id" element={<DiaryDetailPage />} />
         <Route path="/diaries/new" element={<DiaryInputPage />} />
         <Route path="/diaries/:id/edit" element={<DiaryEditPage />} />
-        <Route path="/" element={<HomePage />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/" element={<LoginPage />} />
       </Routes>
     </Router>
   );
