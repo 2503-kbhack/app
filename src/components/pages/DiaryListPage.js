@@ -19,6 +19,7 @@ const DiaryListPage = () => {
             <Link to={`/diaries/${diary.id}`}>{diary.title}</Link>
           </li>
         ))}
+        <Link to={`/`}>Back to Home</Link>
       </ul>
     </div>
   );

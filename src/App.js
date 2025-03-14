@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LoginPage from './components/pages/LoginPage';
 import HomePage from './components/pages/HomePage';
 import DiaryListPage from './components/pages/DiaryListPage';
 import DiaryDetailPage from './components/pages/DiaryDetailPage';
 import DiaryInputPage from './components/pages/DiaryInputPage';
 import DiaryEditPage from './components/pages/DiaryEditPage';
-import LoginPage from './components/pages/LoginPage';
 import './App.css';
 
 function App() {
