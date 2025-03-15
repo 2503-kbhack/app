@@ -245,6 +245,7 @@ client_id = "1350343759371567105"
 secret = "env(SUPABASE_AUTH_EXTERNAL_DISCORD_SECRET)"
 
 
+
 # Use Firebase Auth as a third-party provider alongside Supabase Auth.
 [auth.third_party.firebase]
 enabled = false

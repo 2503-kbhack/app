@@ -1,13 +1,29 @@
 // LoginPage.jsx
-import React, { useState } from 'react';
+import React, { useState,useEffect  } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from './supabaseClient';
+import { supabase } from '../../hooks/supabaseClient';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data, error }) => {
+      console.log(data);
+      if (error || !data.session) {
+        // 認証に失敗している場合はログインページにリダイレクト
+        console.log(error);
+        navigate('/');
+      } else {
+        
+        // 認証に成功している場合はホームページなどへ
+        navigate('/home');
+      }
+    });
+  }, [navigate]);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,8 +38,9 @@ const LoginPage = () => {
 
   const signInWithDiscord = async () => {
     console.log('Discord ログイン処理');
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'discord'
+    const { data,error } = await supabase.auth.signInWithOAuth({
+      provider: 'discord',
+      options: { redirectTo: 'http://localhost:3000/auth/callback' },
     });
     if (error) {
       console.error('Discord ログインエラー:', error.message);
