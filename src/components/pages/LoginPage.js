@@ -1,6 +1,7 @@
+// LoginPage.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { supabase } from './supabaseClient';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -10,15 +11,23 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // ここに実際の認証ロジックを実装
-    // 仮の実装としてemailとpasswordが入力されていればホームページに遷移
     if (email && password) {
-      // ログイン成功時の処理
-      // 実際のプロジェクトではトークンの保存などを行います
       localStorage.setItem('isLoggedIn', 'true');
       navigate('/home');
     } else {
       setError('メールアドレスとパスワードを入力してください');
+      
+    }
+  };
+
+  const signInWithDiscord = async () => {
+    console.log('Discord ログイン処理');
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'discord'
+    });
+    if (error) {
+      console.error('Discord ログインエラー:', error.message);
+      setError(error.message);
     }
   };
 
@@ -26,7 +35,7 @@ const LoginPage = () => {
     <div className="login-container">
       <h1>ログイン</h1>
       {error && <p className="error-message">{error}</p>}
-      
+
       <form onSubmit={handleSubmit} className="login-form">
         <div className="form-group">
           <label htmlFor="email">メールアドレス</label>
@@ -39,7 +48,7 @@ const LoginPage = () => {
             required
           />
         </div>
-        
+
         <div className="form-group">
           <label htmlFor="password">パスワード</label>
           <input
@@ -51,9 +60,17 @@ const LoginPage = () => {
             required
           />
         </div>
-        
-        <button type="submit" className="login-button">ログイン</button>
+
+        <button type="submit" className="login-button">
+          ログイン
+        </button>
       </form>
+
+      <hr />
+
+      <button onClick={signInWithDiscord} className="discord-login-button">
+        Discord でログイン
+      </button>
     </div>
   );
 };
