@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from './components/pages/LoginPage';
+import ProfileCheckPage from './components/pages/ProfileCheckPage';
+import ProfileCreationPage from './components/pages/ProfileCreationPage';
 import HomePage from './components/pages/HomePage';
 import DiaryListPage from './components/pages/DiaryListPage';
 import DiaryDetailPage from './components/pages/DiaryDetailPage';
@@ -19,6 +21,8 @@ function App() {
           <Route path="/" element={<LoginPage />} />
           {/* 保護したいルート群を PrivateRoute でラップ */}
           <Route element={<PrivateRoute />}>
+            <Route path="/profile" element={<ProfileCheckPage />} />          
+            <Route path="/profile/create" element={<ProfileCreationPage />} />
             <Route path="/home" element={<HomePage />} />
             <Route path="/diaries" element={<DiaryListPage />} />
             <Route path="/diaries/new" element={<DiaryInputPage />} />

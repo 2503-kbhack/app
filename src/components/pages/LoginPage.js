@@ -1,7 +1,7 @@
 // LoginPage.jsx
 import React, { useState,useEffect  } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../../hooks/supabaseClient';
+import { supabase } from '../../supabaseClient';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -15,11 +15,10 @@ const LoginPage = () => {
       if (error || !data.session) {
         // 認証に失敗している場合はログインページにリダイレクト
         console.log(error);
-        navigate('/');
       } else {
         
         // 認証に成功している場合はホームページなどへ
-        navigate('/home');
+        navigate('/profile');
       }
     });
   }, [navigate]);
