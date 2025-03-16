@@ -1,7 +1,7 @@
 // LoginPage.jsx
 import React, { useState,useEffect  } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../../supabaseClient';
+import { supabase } from '../../api/supabaseClient';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 

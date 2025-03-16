@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { supabase } from '../../supabaseClient'; // パスはプロジェクトに合わせて変更
+import { supabase } from '../../api/supabaseClient'; // パスはプロジェクトに合わせて変更
 import { useAuth } from '../../hooks/AuthContext';
 import { useNavigate } from 'react-router-dom';
 

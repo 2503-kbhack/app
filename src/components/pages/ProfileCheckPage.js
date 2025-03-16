@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/AuthContext';
-import { fetchProfile } from '../../hooks/fetchProfile'; // ここで先ほどの fetchProfile.js をインポート
+import { fetchProfile } from '../../api/fetchProfile'; // ここで先ほどの fetchProfile.js をインポート
 
 function ProfileCheckPage() {
   const { user, profile, setProfile } = useAuth(); // AuthContext からユーザーとプロフィールを取得

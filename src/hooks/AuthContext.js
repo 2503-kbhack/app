@@ -1,7 +1,7 @@
 // AuthContext.js
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { supabase } from '../supabaseClient';
-import { fetchProfile } from './fetchProfile';
+import { supabase } from '../api/supabaseClient';
+import { fetchProfile } from '../api/fetchProfile';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {

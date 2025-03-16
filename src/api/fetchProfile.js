@@ -1,6 +1,6 @@
 //fetchProfile.js
 // プロフィール情報を取得するカスタムフック
-import { supabase } from '../supabaseClient';
+import { supabase } from './supabaseClient';
 
 export const fetchProfile = async (userId) => {
   // profiles テーブルから userId に合致するレコードを取得する。
