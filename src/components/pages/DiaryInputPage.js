@@ -11,6 +11,7 @@ const DiaryInputPage = () => {
   // UI 用のステート
   const [icon, setIcon] = useState(null);
   const [face, setFace] = useState('(・_・)');
+  const [diary, setDiary] = useState('');
 
   /**
    * ランダムなアイコンを1秒間だけ表示する
@@ -36,24 +37,19 @@ const DiaryInputPage = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const url = `${SUPABASE_URL}/functions/v1/generate-diary`;
-    fetch(url, {
+    const data = await fetch(url, {
       method: 'POST',
       mode: "cors",
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ transcript })
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Success:', data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        alert('Failed to create diary');
-      });
+    });
+
+    const json = await data.json();
+    setDiary(json.text);
   }
 
   // カスタムフックの利用
@@ -91,7 +87,12 @@ const DiaryInputPage = () => {
         )}
       </div>
 
-      <button onClick={handleSubmit}>Create</button>
+      <button onClick={handleSubmit}>Create</button><br />
+
+      <div>
+        <strong>Generated:</strong>
+        <p>{ diary }</p>
+      </div>
       <nav>
         <ul>
           <li><Link to="/diaries">Back to Diary List</Link></li>
