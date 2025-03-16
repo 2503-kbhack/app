@@ -49,6 +49,7 @@ Deno.serve(async (req) => {
       以下は、音声認識結果の文字起こしです。このデータをもとに、Markdown 形式でユーザーの日記を生成してください。
 
       ---
+      日付：${new Date().toISOString()}
       ${transcript}
     `)
   const data = { text: result.response.text() }
