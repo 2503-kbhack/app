@@ -55,7 +55,7 @@ const ProfileCreationPage = () => {
         // 他に必要なフィールドがあれば追加
       });
       // 作成完了後、ホームページに遷移
-      navigate('/home');
+      navigate('/profile/edit');
     }
     setLoading(false);
   };

@@ -19,7 +19,12 @@ function HomePage() {
   return (
     <div>
       <h1>Home Page</h1>
-      <p>ようこそ、<strong>{profile.nickname}</strong> さん</p>
+      <p>
+        ようこそ、<strong>{profile.nickname}</strong> さん&nbsp;
+        <Link to="/profile/edit" style={{ fontSize: '0.8em' }}>
+          [プロフィールの詳細を編集]
+        </Link>
+      </p>
       <p>誕生日: {profile.birth_date}</p>
       <p>性別: {profile.gender}</p>
       <nav>

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from './components/pages/LoginPage';
 import ProfileCheckPage from './components/pages/ProfileCheckPage';
 import ProfileCreationPage from './components/pages/ProfileCreationPage';
+import ProfileEditPage from './components/pages/ProfileEditPage';
 import HomePage from './components/pages/HomePage';
 import DiaryListPage from './components/pages/DiaryListPage';
 import DiaryDetailPage from './components/pages/DiaryDetailPage';
@@ -23,6 +24,7 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<ProfileCheckPage />} />          
             <Route path="/profile/create" element={<ProfileCreationPage />} />
+            <Route path="/profile/edit" element={<ProfileEditPage />} />
             <Route path="/home" element={<HomePage />} />
             <Route path="/diaries" element={<DiaryListPage />} />
             <Route path="/diaries/new" element={<DiaryInputPage />} />
