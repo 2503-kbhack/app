@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useAudioRecorder from '../../hooks/useAudioRecorder';
 
+const SUPABASE_URL = process.env.REACT_APP_SUPABASE_URL
+
 // ランダム表示したいアイコンの候補
 const ICONS = ['👍', '❤️', '🌈', '✨', '👏', '👼','🥹', '🎊', '🙌'];
 
@@ -33,6 +35,26 @@ const DiaryInputPage = () => {
       setFace('(・_・)');
     }
   };
+
+  const handleSubmit = () => {
+    const url = `${SUPABASE_URL}/functions/v1/generate-diary`;
+    fetch(url, {
+      method: 'POST',
+      mode: "cors",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ transcript })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert('Failed to create diary');
+      });
+  }
 
   // カスタムフックの利用
   const { recording, audioLevel, transcript, startRecording, stopRecording } = useAudioRecorder({
@@ -69,7 +91,7 @@ const DiaryInputPage = () => {
         )}
       </div>
 
-      <Link to="/diaries/:id/edit">Create</Link>
+      <button onClick={handleSubmit}>Create</button>
       <nav>
         <ul>
           <li><Link to="/diaries">Back to Diary List</Link></li>
