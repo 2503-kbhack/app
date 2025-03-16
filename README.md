@@ -12,8 +12,18 @@ npx supabase functions new <function-name>
 
 ## 関数をローカルで動作させる
 ```sh
-npx supabase start
-npm run dev-functions
+npm run supabase:start
+npm run edge:serve
+```
+
+あとは `http://127.0.0.1:54321/functions/v1/<function-name>` でリクエストが待ち受けられます。
+単に動作をデバッグしたい場合は、以下のようなデバッグコマンドを使用してください。
+
+```sh
+npm run edge:<function-name>
+
+# 例
+npm run edge:generate-diary
 ```
 
 ## 関数をデプロイする
