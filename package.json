@@ -20,7 +20,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev-functions": "npx supabase functions serve --env-file .env"
+    "supabase:start": "npx supabase start",
+    "edge:serve": "npx supabase functions serve --no-verify-jwt",
+    "edge:deploy": "npx supabase functions deploy"
   },
   "eslintConfig": {
     "extends": [
