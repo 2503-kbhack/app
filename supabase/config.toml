@@ -243,8 +243,7 @@ skip_nonce_check = false
 enabled = true
 client_id = "1350343759371567105"
 secret = "env(SUPABASE_AUTH_EXTERNAL_DISCORD_SECRET)"
-
-
+redirect_uri = "http://localhost:54321/auth/v1/callback"
 
 # Use Firebase Auth as a third-party provider alongside Supabase Auth.
 [auth.third_party.firebase]
