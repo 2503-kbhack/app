@@ -5,26 +5,13 @@
 // Setup type definitions for built-in Supabase Runtime APIs
 import "jsr:@supabase/functions-js/edge-runtime.d.ts"
 
-console.log("Hello from Functions!!!!")
+console.log("Hello from Functions!")
 
 Deno.serve(async (req) => {
-  console.log("Hello from Functions!")
-  // まずは生の文字列として取得
-  const rawBody = await req.text();
-  console.log("Raw request body:", rawBody);
-
-  // JSON としてパース
-  let data;
-  try {
-    data = JSON.parse(rawBody);
-  } catch (e) {
-    console.error("JSON parse error:", e);
-    return new Response("Invalid JSON", { status: 400 });
+  const { name } = await req.json()
+  const data = {
+    message: `Hello ${name}!`,
   }
-
-  // パースできたら、data から name を取り出す
-  const { name } = data;
-  console.log("Parsed name:", name);
 
   return new Response(
     JSON.stringify(data),
