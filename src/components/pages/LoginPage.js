@@ -3,6 +3,8 @@ import React, { useState,useEffect  } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../supabaseClient';
 
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -30,7 +32,7 @@ const LoginPage = () => {
     console.log('Discord ログイン処理');
     const { data,error } = await supabase.auth.signInWithOAuth({
       provider: 'discord',
-      options: { redirectTo: 'http://localhost:3000/auth/callback' },
+      options: { redirectTo: `${BASE_URL}/home` },
     });
     if (error) {
       console.error('Discord ログインエラー:', error.message);
