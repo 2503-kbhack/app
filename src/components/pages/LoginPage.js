@@ -18,7 +18,6 @@ const LoginPage = () => {
         // 認証に失敗している場合はログインページにリダイレクト
         console.log(error);
       } else {
-        
         // 認証に成功している場合はホームページなどへ
         navigate('/profile');
       }

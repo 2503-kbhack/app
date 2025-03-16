@@ -5,16 +5,10 @@ import { useAuth } from '../../hooks/AuthContext';
 
 function HomePage() {
   const { user, profile, loading } = useAuth();
-  const navigate = useNavigate();
   if (loading) {
     return <div>読み込み中...</div>;
   }
   console.log(profile);
-  // profile が存在しない場合は、簡易エラーメッセージを表示
-  if (!profile || !profile.nickname) {
-
-    navigate('/');
-  }
 
   return (
     <div>
