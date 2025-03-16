@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+// LoginPage.jsx
+import React, { useState,useEffect  } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { supabase } from '../../supabaseClient';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -8,17 +9,32 @@ const LoginPage = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // ここに実際の認証ロジックを実装
-    // 仮の実装としてemailとpasswordが入力されていればホームページに遷移
-    if (email && password) {
-      // ログイン成功時の処理
-      // 実際のプロジェクトではトークンの保存などを行います
-      localStorage.setItem('isLoggedIn', 'true');
-      navigate('/home');
-    } else {
-      setError('メールアドレスとパスワードを入力してください');
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data, error }) => {
+      console.log(data);
+      if (error || !data.session) {
+        // 認証に失敗している場合はログインページにリダイレクト
+        console.log(error);
+      } else {
+        
+        // 認証に成功している場合はホームページなどへ
+        navigate('/profile');
+      }
+    });
+  }, [navigate]);
+
+
+
+
+  const signInWithDiscord = async () => {
+    console.log('Discord ログイン処理');
+    const { data,error } = await supabase.auth.signInWithOAuth({
+      provider: 'discord',
+      options: { redirectTo: 'http://localhost:3000/auth/callback' },
+    });
+    if (error) {
+      console.error('Discord ログインエラー:', error.message);
+      setError(error.message);
     }
   };
 
@@ -26,34 +42,9 @@ const LoginPage = () => {
     <div className="login-container">
       <h1>ログイン</h1>
       {error && <p className="error-message">{error}</p>}
-      
-      <form onSubmit={handleSubmit} className="login-form">
-        <div className="form-group">
-          <label htmlFor="email">メールアドレス</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="メールアドレスを入力"
-            required
-          />
-        </div>
-        
-        <div className="form-group">
-          <label htmlFor="password">パスワード</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="パスワードを入力"
-            required
-          />
-        </div>
-        
-        <button type="submit" className="login-button">ログイン</button>
-      </form>
+      <button onClick={signInWithDiscord} className="discord-login-button">
+        Discord でログイン
+      </button>
     </div>
   );
 };
