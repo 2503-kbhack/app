@@ -1,5 +1,5 @@
 // LoginPage.jsx
-import React, { useState,useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../api/supabaseClient';
 
@@ -29,7 +29,7 @@ const LoginPage = () => {
 
   const signInWithDiscord = async () => {
     console.log('Discord ログイン処理');
-    const { data,error } = await supabase.auth.signInWithOAuth({
+    const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'discord',
       options: { redirectTo: `${BASE_URL}/home` },
     });
