@@ -23,6 +23,7 @@
     "supabase:start": "npx supabase start",
     "supabase:stop": "npx supabase stop",
     "supabase:reload": "npx supabase stop && npx supabase start",
+    "db:reset": "npx supabase db reset",
     "edge:serve": "npx supabase functions serve --env-file .env"
   },
   "eslintConfig": {
