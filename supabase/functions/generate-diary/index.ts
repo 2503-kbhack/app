@@ -59,12 +59,11 @@ Deno.serve(async (req) => {
       [schema]
       diary = {
         "title": "string",
-        "content": "string"   # Markdown 形式
+        "body": "string"
       }
       Result: diary[]
     `)
     const formattedText = result.response.text().replace(/```json|```/g, "")
-    console.log("formattedText", formattedText);
     
     const data = JSON.parse(formattedText);
   return new Response(
