@@ -23,15 +23,16 @@ const DiaryEditPage = () => {
     setDiaryItems(updatedItems);
   };
 
-  // ▼ リマインドのラジオボタン変更時のハンドラー
-  const handleReminderChange = (index, value) => {
-    const updatedItems = [...diaryItems];
-    updatedItems[index].remind = value; // true/false
+  // ▼ 重要イベントのチェックボックス変更時のハンドラー
+  const handleImportantChange = (index) => {
+    const updatedItems = diaryItems.map((item, i) => ({
+      ...item,
+      isImportant: i === index,
+    }));
     setDiaryItems(updatedItems);
   };
 
   const transcript = sessionStorage.getItem('transcript');
-  console.log(transcript);
 
   useEffect(() => {
     fetch(`${API_URL}/functions/v1/generate-diary`, {
@@ -90,27 +91,15 @@ const DiaryEditPage = () => {
                 />
               </div>
 
-              {/* リマインド選択欄 */}
+              {/* 重要イベント選択欄 */}
               <div style={{ marginTop: '4px' }}>
                 <label>
                   <input
-                    type="radio"
-                    name={`reminder-${index}`}
-                    value="yes"
-                    checked={item.remind === true}
-                    onChange={() => handleReminderChange(index, true)}
+                    type="checkbox"
+                    checked={item.isImportant}
+                    onChange={() => handleImportantChange(index)}
                   />
-                  リマインド欲しい
-                </label>
-                <label style={{ marginLeft: '1rem' }}>
-                  <input
-                    type="radio"
-                    name={`reminder-${index}`}
-                    value="no"
-                    checked={item.remind === false}
-                    onChange={() => handleReminderChange(index, false)}
-                  />
-                  リマインド欲しくない
+                  一日を代表するイベント
                 </label>
               </div>
             </li>
