@@ -62,7 +62,7 @@ const DiaryInputPage = () => {
           style={{ width: '100%', height: '100px' }} 
           disabled={recording} 
           onChange={e => { setTranscript(e.target.value) }} 
-          value={transcript} // Add this line to bind the textarea value to the transcript state
+          value={transcript}
         />
       </div>
 
@@ -74,7 +74,12 @@ const DiaryInputPage = () => {
         )}
       </div>
 
-      <Link to="/diaries/:id/edit">Create</Link>
+      <Link 
+        to="/diaries/:id/edit" 
+        onClick={() => sessionStorage.setItem('transcript', transcript)}
+      >
+        Create
+      </Link>
       <nav>
         <ul>
           <li><Link to="/diaries">Back to Diary List</Link></li>

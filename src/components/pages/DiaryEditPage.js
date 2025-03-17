@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+const API_URL = process.env.REACT_APP_SUPABASE_URL;
 
 const DiaryEditPage = () => {
   // ▼ 「タイトル」「本文」「リマインドの有無」を持つ配列を用意
@@ -41,6 +44,41 @@ const DiaryEditPage = () => {
     updatedItems[index].remind = value; // true/false
     setDiaryItems(updatedItems);
   };
+
+  const transcript = sessionStorage.getItem('transcript');
+  console.log(transcript);
+
+  useEffect(() => {
+    fetch(`${API_URL}/functions/v1/generate-diary`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({transcript}),
+    }).then((response) => {
+      if (!response.ok) {
+        throw new Error('Failed to generate diary');
+      }
+      return response.json();
+    }
+    ).then((data) => {
+      console.log(data);
+      const text = data.text;
+      const sections = text.split('## ').filter(section => section.trim() !== '');
+      const updatedDiaryItems = sections.map(section => {
+        const [title, ...bodyParts] = section.split('\n').filter(line => line.trim() !== '');
+        return {
+          title: title.trim(),
+          body: bodyParts.join('\n').trim(),
+          remind: false
+        };
+      });
+      setDiaryItems(updatedDiaryItems);
+    }).catch((error) => {
+      console.error(error);
+    });
+  }, [])
 
   return (
     <div>
