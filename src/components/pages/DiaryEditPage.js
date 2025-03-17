@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import '../../App.css';
+import AppHeader from './AppHeader'; 
+
 
 const DiaryEditPage = () => {
   // ▼ 「タイトル」「本文」「リマインドの有無」を持つ配列を用意
@@ -43,7 +46,7 @@ const DiaryEditPage = () => {
   };
 
   return (
-    <div>
+    <div className="App-body"> {/* 新しいクラスを適用 */}
       <h1>Diary Edit</h1>
       <p>ここで書き起こしたテキストを修正</p>
 
@@ -98,7 +101,7 @@ const DiaryEditPage = () => {
         ))}
       </ul>
 
-      <Link to="/diaries/:id">Submit</Link>
+      <Link to="/diaries/:id" className="button-link">Submit</Link>
     </div>
   );
 };

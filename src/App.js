@@ -12,12 +12,18 @@ import DiaryEditPage from './components/pages/DiaryEditPage';
 import PrivateRoute from './hooks/PrivateRoute';
 import { AuthProvider } from './hooks/AuthContext';
 import './App.css';
+import AppHeader from './components/pages/AppHeader'; // ヘッダー
+
 
 function App() {
   return (
     <AuthProvider>
       <Router>
+
+        {/* ヘッダーを全ページ共通で表示する場合 */}
+        <AppHeader />  
         <Routes>
+          
           {/* 公開ルート */}
           <Route path="/" element={<LoginPage />} />
           {/* 保護したいルート群を PrivateRoute でラップ */}

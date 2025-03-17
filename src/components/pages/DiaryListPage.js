@@ -1,26 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../../App.css';
+import AppHeader from './AppHeader'; 
+import diaries from '../../data/DiaryData';  // ← ここでちゃんとインポート
 
 const DiaryListPage = () => {
-  const diaries = [
-    { id: 1, title: 'Diary 1' },
-    { id: 2, title: 'Diary 2' },
-    { id: 2, title: 'Diary 3' },
-    // ...other diaries...
-  ];
-
   return (
-    <div>
-      <h1>Diary List</h1>
-      <p>日記一覧</p>
-      <ul>
-        {diaries.map(diary => (
-          <li key={diary.id}>
-            <Link to={`/diaries/${diary.id}`}>{diary.title}</Link>
-          </li>
-        ))}
-        <Link to={`/`}>Back to Home</Link>
-      </ul>
+    <div className="App-body">
+      <h1>日記一覧</h1>
+      
+
+      <div className="diary-list-container">
+        <ul className="diary-list">
+          {diaries.map(diary => (
+            <li key={diary.id} className="diary-card">
+              <Link to={`/diaries/${diary.id}`}>
+                {diary.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <Link to={`/`} className="button-link">Homeに戻る</Link>
     </div>
   );
 };
