@@ -6,23 +6,7 @@ const API_URL = process.env.REACT_APP_SUPABASE_URL;
 
 const DiaryEditPage = () => {
   // ▼ 「タイトル」「本文」「リマインドの有無」を持つ配列を用意
-  const [diaryItems, setDiaryItems] = useState([
-    {
-      title: '朝の運動の振り返り',
-      body: 'ここに本文を入力してください',
-      remind: false
-    },
-    {
-      title: '昼食のメニュー',
-      body: 'ここに本文を入力してください',
-      remind: false
-    },
-    {
-      title: '夜のリラックスタイム',
-      body: 'ここに本文を入力してください',
-      remind: false
-    },
-  ]);
+  const [diaryItems, setDiaryItems] = useState([]);
 
   // ▼ タイトル変更時のハンドラー
   const handleTitleChange = (index, newTitle) => {
@@ -66,7 +50,7 @@ const DiaryEditPage = () => {
       const diaries = data;
       console.log(diaries);
       setDiaryItems(diaries);
-      
+
     }).catch((error) => {
       console.error(error);
     });
