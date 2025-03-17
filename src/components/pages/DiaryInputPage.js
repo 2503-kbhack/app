@@ -9,6 +9,7 @@ const DiaryInputPage = () => {
   // UI 用のステート
   const [icon, setIcon] = useState(null);
   const [face, setFace] = useState('(・_・)');
+  const [diary, setDiary] = useState('');
 
   /**
    * ランダムなアイコンを1秒間だけ表示する
@@ -55,13 +56,12 @@ const DiaryInputPage = () => {
         <button onClick={stopRecording}>Stop Recording</button>
       )}
 
-      {/* transcript のリアルタイム表示 */}
-      <div>
-        <strong>Transcript:</strong>
-        <p>{transcript}</p>
-      </div>
+        <div>
+          <strong>Transcript:</strong>
+          <textarea style={{ width: '100%', height: '100px' }} disabled={recording} />
+        </div>
 
-      {/* 顔とアイコンを横並びにして、アイコンを右に配置 */}
+        {/* 顔とアイコンを横並びにして、アイコンを右に配置 */}
       <div style={{ display: 'flex', alignItems: 'center', fontSize: '2rem', margin: '1rem 0' }}>
         <div>{face}</div>
         {icon && (
