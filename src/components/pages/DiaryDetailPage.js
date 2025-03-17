@@ -17,7 +17,7 @@ const DiaryDetailPage = (props) => {
 
     getDiary();
   }, []);
-  console.log(diary[0]);
+  
   if (!diary[0]) {
     return <div>読み込み中</div>;
   }
