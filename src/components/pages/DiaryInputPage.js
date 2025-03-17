@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import useAudioRecorder from '../../hooks/useAudioRecorder';
 
 // ランダム表示したいアイコンの候補
-const ICONS = ['👍', '❤️', '🌈', '✨', '👏', '👼','🥹', '🎊', '🙌'];
+const ICONS = ['👍', '❤️', '🌈', '✨', '👏', '👼', '🥹', '🎊', '🙌'];
 
 const DiaryInputPage = () => {
   // UI 用のステート
   const [icon, setIcon] = useState(null);
   const [face, setFace] = useState('(・_・)');
+  const [diary, setDiary] = useState('');
 
   /**
    * ランダムなアイコンを1秒間だけ表示する
@@ -35,7 +36,7 @@ const DiaryInputPage = () => {
   };
 
   // カスタムフックの利用
-  const { recording, audioLevel, transcript, startRecording, stopRecording } = useAudioRecorder({
+  const { recording, audioLevel, transcript, setTranscript, startRecording, stopRecording } = useAudioRecorder({
     onSilence: showRandomIcon
   });
 
@@ -55,10 +56,14 @@ const DiaryInputPage = () => {
         <button onClick={stopRecording}>Stop Recording</button>
       )}
 
-      {/* transcript のリアルタイム表示 */}
       <div>
         <strong>Transcript:</strong>
-        <p>{transcript}</p>
+        <textarea 
+          style={{ width: '100%', height: '100px' }} 
+          disabled={recording} 
+          onChange={e => { setTranscript(e.target.value) }} 
+          value={transcript}
+        />
       </div>
 
       {/* 顔とアイコンを横並びにして、アイコンを右に配置 */}
@@ -69,7 +74,12 @@ const DiaryInputPage = () => {
         )}
       </div>
 
-      <Link to="/diaries/:id/edit">Create</Link>
+      <Link 
+        to="/diaries/:id/edit" 
+        onClick={() => sessionStorage.setItem('transcript', transcript)}
+      >
+        Create
+      </Link>
       <nav>
         <ul>
           <li><Link to="/diaries">Back to Diary List</Link></li>
