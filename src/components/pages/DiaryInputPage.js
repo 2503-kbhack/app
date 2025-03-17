@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import useAudioRecorder from '../../hooks/useAudioRecorder';
 
 // ランダム表示したいアイコンの候補
-const ICONS = ['👍', '❤️', '🌈', '✨', '👏', '👼','🥹', '🎊', '🙌'];
+const ICONS = ['👍', '❤️', '🌈', '✨', '👏', '👼', '🥹', '🎊', '🙌'];
 
 const DiaryInputPage = () => {
   // UI 用のステート
@@ -36,7 +36,7 @@ const DiaryInputPage = () => {
   };
 
   // カスタムフックの利用
-  const { recording, audioLevel, transcript, startRecording, stopRecording } = useAudioRecorder({
+  const { recording, audioLevel, transcript, setTranscript, startRecording, stopRecording } = useAudioRecorder({
     onSilence: showRandomIcon
   });
 
@@ -56,12 +56,17 @@ const DiaryInputPage = () => {
         <button onClick={stopRecording}>Stop Recording</button>
       )}
 
-        <div>
-          <strong>Transcript:</strong>
-          <textarea style={{ width: '100%', height: '100px' }} disabled={recording} />
-        </div>
+      <div>
+        <strong>Transcript:</strong>
+        <textarea 
+          style={{ width: '100%', height: '100px' }} 
+          disabled={recording} 
+          onChange={e => { setTranscript(e.target.value) }} 
+          value={transcript} // Add this line to bind the textarea value to the transcript state
+        />
+      </div>
 
-        {/* 顔とアイコンを横並びにして、アイコンを右に配置 */}
+      {/* 顔とアイコンを横並びにして、アイコンを右に配置 */}
       <div style={{ display: 'flex', alignItems: 'center', fontSize: '2rem', margin: '1rem 0' }}>
         <div>{face}</div>
         {icon && (

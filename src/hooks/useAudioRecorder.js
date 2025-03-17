@@ -130,7 +130,7 @@ function useAudioRecorder({ onSilence } = {}) {
     };
   }, [recording]);
 
-  return { recording, audioLevel, transcript, startRecording, stopRecording };
+  return { recording, audioLevel, transcript, startRecording, stopRecording, setTranscript };
 }
 
 export default useAudioRecorder;
