@@ -91,6 +91,7 @@ export const AuthProvider = ({ children }) => {
         user,       // { id, email } だけ
         profile,    // { nickname, birth_date, ... } 初期定義
         setProfile, // プロフィールを更新できるようにエクスポート
+        setUser,    // ユーザー情報を更新できるようにエクスポート
         loading,
       }}
     >

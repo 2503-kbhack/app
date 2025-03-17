@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link,useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/AuthContext';
-
+import LogoutButton from '../auth/LogoutButton';
 
 function HomePage() {
   const { user, profile, loading } = useAuth();
@@ -12,6 +12,7 @@ function HomePage() {
 
   return (
     <div>
+      <LogoutButton />
       <h1>Home Page</h1>
       <p>
         ようこそ、<strong>{profile.nickname}</strong> さん&nbsp;
