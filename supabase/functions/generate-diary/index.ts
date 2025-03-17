@@ -24,7 +24,7 @@ const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
-    return new Response('ok', { status:200, headers: corsHeaders })
+    return new Response('ok', { status: 200, headers: corsHeaders })
   }
 
   // メソッドチェック
@@ -46,21 +46,35 @@ Deno.serve(async (req) => {
 
   // 日記データの生成
   const result = await model.generateContent(`
-      以下は、音声認識結果の文字起こしです。このデータをもとに、Markdown 形式でユーザーの日記を生成してください。
-      起きた出来事をいくつかの見出しに分けて記述し、日記のような形式で出力してください。
-      それ以外の内容は一切出力しないでください。
-      ---
-      日付：${new Date().toISOString()}
-      ${transcript}
-    `)
-  const data = { text: result.response.text() }
+      以下のデータは、音声認識結果をもとに生成された日記です。日記の内容は、音声認識結果のテキストをそのまま出力しています。
+      これをもとに、内容をいくつかの見出しに分け、各見出しと内容をオブジェクト化した配列として出力して下さい。
+      
+      オブジェクトの構造については [schema] を参照してください。
+      最終的な出力は Result として定義しています。
 
+      それ以外の内容については一切出力しないでください。
+      ---
+      ${transcript}
+      ---
+      [schema]
+      diary = {
+        "title": "string",
+        "content": "string"   # Markdown 形式
+      }
+      Result: diary[]
+    `)
+    const formattedText = result.response.text().replace(/```json|```/g, "")
+    console.log("formattedText", formattedText);
+    
+    const data = JSON.parse(formattedText);
   return new Response(
     JSON.stringify(data),
-    { headers: {
-    ...corsHeaders, "Content-Type": "application/json"
-  }}
-)
+    {
+      headers: {
+        ...corsHeaders, "Content-Type": "application/json"
+      }
+    }
+  )
 })
 
 /* To invoke locally:
