@@ -63,18 +63,10 @@ const DiaryEditPage = () => {
       return response.json();
     }
     ).then((data) => {
-      console.log(data);
-      const text = data.text;
-      const sections = text.split('## ').filter(section => section.trim() !== '');
-      const updatedDiaryItems = sections.map(section => {
-        const [title, ...bodyParts] = section.split('\n').filter(line => line.trim() !== '');
-        return {
-          title: title.trim(),
-          body: bodyParts.join('\n').trim(),
-          remind: false
-        };
-      });
-      setDiaryItems(updatedDiaryItems);
+      const diaries = data;
+      console.log(diaries);
+      setDiaryItems(diaries);
+      
     }).catch((error) => {
       console.error(error);
     });
