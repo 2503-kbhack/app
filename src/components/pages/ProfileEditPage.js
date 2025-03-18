@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../../api/supabaseClient';
 import { useAuth } from '../../hooks/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import '../../App.css';
+import AppHeader from './AppHeader'; 
+
 
 function ProfileEditPage() {
   const { user, profile, setProfile } = useAuth();
@@ -58,7 +61,7 @@ function ProfileEditPage() {
   };
 
   return (
-    <div>
+    <div className="App-body"> {/* 新しいクラスを適用 */}
       <h2>プロフィールの詳細を編集</h2>
         <p>後で追加することも出来ます</p>   
       {message && <p>{message}</p>}
@@ -94,7 +97,7 @@ function ProfileEditPage() {
             placeholder="趣味を入力"
           />
         </div>
-        <button type="submit" disabled={loading}>
+        <button type="submit" disabled={loading} className="button-link">
           {loading ? '更新中...' : 'ホームへ'}
         </button>
       </form>

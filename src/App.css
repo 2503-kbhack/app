@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: Inter;
 }
 
 .App-logo {
@@ -13,8 +14,57 @@
   }
 }
 
-.App-header {
-  background-color: #282c34;
+/* ヘッダーを固定表示し、横幅を全体にする */
+.app-header {
+  position: fixed;        /* 固定表示 */
+  top: 0;                 /* 画面上部に固定 */
+  left: 0;
+  width: 100%;            /* 横幅いっぱいに */
+  height: 60px;           /* ヘッダーの高さ */
+  display: flex;          /* 横並びに要素を配置 */
+  align-items: center;    /* 縦方向の中央揃え */
+  background-color: #f5f5f5; /* 背景色など自由に設定 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0 20px;
+  z-index: 999;           /* コンテンツの上に重ねるためにz-indexを設定 */
+}
+
+/* アイコン画像のサイズ調整やスペースを追加 */
+.app-icon {
+  height: 40px; 
+  margin-right: 10px; 
+}
+
+/* アプリ名のスタイル */
+.app-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 
+   ヘッダーが固定表示のため、
+   ページ全体の上部の余白が無いと
+   コンテンツがヘッダーの裏に隠れます。 
+   ↓コンテンツに余白を持たせるための対策例
+*/
+body {
+  margin: 0;
+  padding-top: 60px; /* ヘッダーと同じ高さ分、コンテンツを下げる */
+}
+
+
+/* ul を横並びにする */
+nav ul {
+  display: flex;   /* 横並び */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 16px;      /* ボタンの間隔を 16px に設定 */
+}
+
+.App-body {
+  background: linear-gradient(to bottom, #000c1f, #003366);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -22,6 +72,25 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+/* リンクボタンのスタイル */
+.button-link {
+  display: inline-block;
+  text-decoration: none;
+  background-color: transparent;
+  color: #61dafb;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 8px 16px;
+  border: 2px solid #61dafb;
+  border-radius: 6px;
+  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.button-link:hover {
+  background-color: #61dafb;
+  color: #ffffff;
 }
 
 .App-link {
@@ -35,4 +104,59 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* スクロール領域を確保 */
+.diary-list-container {
+  width: 300px;        /* お好みで調整 */
+  max-height: 400px;   /* これを超えると縦スクロール */
+  overflow-y: auto;    /* 縦方向にスクロール可能にする */
+  margin: 0 auto;      /* 中央寄せしたい場合 */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+/* ul のデフォルトスタイルをリセット＆縦方向に並べる */
+.diary-list {
+  list-style-type: none; 
+  padding: 0;
+  margin: 0;
+}
+
+/* カード風のスタイル */
+.diary-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin: 8px 0;
+  padding: 16px;
+  text-align: left;
+  transition: box-shadow 0.2s ease;
+}
+
+.diary-card:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* リンクの装飾（色等を適宜調整） */
+.diary-card a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+}
+
+/* ボタン風リンク */
+.button-link {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 8px 16px;
+  background-color: #4477ee;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.button-link:hover {
+  background-color: #3355aa;
 }

@@ -31,6 +31,7 @@ const DiaryDetailPage = (props) => {
       
      
     </div>
+
   );
 };
 
