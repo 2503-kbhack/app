@@ -48,7 +48,7 @@ function ProfileCheckPage() {
     };
 
     checkProfile();
-  }, [user, navigate, setProfile]);
+  }, []);
 
   if (loading) {
     return <div className="App-body"> {/* 新しいクラスを適用 */}

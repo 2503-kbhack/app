@@ -5,6 +5,7 @@ import { fetchProfile } from '../api/fetchProfile';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+
   // ユーザー情報（id, email だけ保持）
   const [user, setUser] = useState(null);
 
@@ -23,6 +24,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     // セッション取得 → user.id と user.email をセット
   const fetchSession = async () => {
+    console.count('fetchSession');
     const { data, error } = await supabase.auth.getSession();
     let sessionUser = null;
     if (error) {
@@ -41,7 +43,7 @@ export const AuthProvider = ({ children }) => {
     const fetchuserProfile = async (userId) => {
       try {
         const profileData = await fetchProfile(userId);
-        console.log('取得したプロフィール:', profileData);
+        console.count('取得したプロフィール:', profileData);
         if (profileData) {
           setProfile({
             nickname: profileData.nickname || '',
@@ -62,6 +64,7 @@ export const AuthProvider = ({ children }) => {
     // セッションユーザーが存在する場合のみプロフィール取得を実行
     if (sessionUser) {
       await fetchuserProfile(sessionUser.id);
+      console.count('fetchuserProfile:', sessionUser);
     }
   };
 
@@ -83,6 +86,7 @@ export const AuthProvider = ({ children }) => {
     return () => {
       authListener.subscription.unsubscribe();
     };
+    
   }, []);
 
   return (
