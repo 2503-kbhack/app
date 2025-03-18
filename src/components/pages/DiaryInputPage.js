@@ -20,7 +20,7 @@ const DiaryInputPage = () => {
   };
 
 
-  const { audioLevel, transcript: recordedTranscript } = useAudioRecorder({});
+  const { recording, startRecording, stopRecording, audioLevel, transcript: recordedTranscript } = useAudioRecorder({});
 
   useEffect(() => {
     if (recordedTranscript) {
@@ -58,7 +58,6 @@ const DiaryInputPage = () => {
       <Link to="/diaries/:id/edit" className="button-link" style={{ marginTop: '1rem', display: 'inline-block' }}>
         送信
       </Link>
-      {/* -------------------------------- */}
 
       {/* ミュートボタンを左・イルカの画像を右に配置 */}
       <div style={{ display: 'flex', flexDirection: 'row-reverse', alignItems: 'flex-end', margin: '1rem 0' }}>
@@ -72,14 +71,14 @@ const DiaryInputPage = () => {
 
         {/* ミュートボタン（左側に配置） */}
         <button
-          onClick={toggleMute}
+          onClick={recording ? stopRecording : startRecording}
           className="button-link"
           style={{ marginRight: '1rem' }}
         >
-          {muted ? (
-            <VolumeX size={20} />
-          ) : (
+          {recording ? (
             <Volume2 size={20} />
+          ) : (
+            <VolumeX size={20} />
           )}
         </button>
       </div>
