@@ -25,7 +25,8 @@
     "db:reset": "npx supabase db reset",
     "supabase:reload": "npx supabase stop && npx supabase start",
     "edge:serve": "npx supabase functions serve --env-file .env",
-    "edge:generate-diary": "ts-node scripts/debug/generate-diary.ts"
+    "edge:generate-diary": "ts-node scripts/debug/generate-diary.ts",
+    "edge:summerize-weekly-diary": "ts-node scripts/debug/summerize-weekly-diary.ts"
   },
   "eslintConfig": {
     "extends": [

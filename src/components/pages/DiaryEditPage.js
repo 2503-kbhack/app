@@ -107,7 +107,7 @@ const DiaryEditPage = () => {
         </ul>
       )}
 
-      <Link to="/diaries/:id">Submit</Link>
+      
     </div>
   );
 };
