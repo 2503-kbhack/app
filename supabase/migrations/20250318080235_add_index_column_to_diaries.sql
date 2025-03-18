@@ -1,1 +1,1 @@
-ALTER TABLE public."Diaries" ADD COLUMN is_important integer NOT NULL;
+ALTER TABLE public."Diaries" ADD COLUMN "index" integer NOT NULL;
