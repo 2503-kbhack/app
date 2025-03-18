@@ -48,6 +48,7 @@ function HomePage() {
        <ul>
         <li><Link to="/diaries" className="button-link">日記一覧</Link></li>
         <li><Link to="/diaries/new" className="button-link">新しい日記を作成</Link></li>
+          <li><Link to="/summary"> Weekly Summary</Link></li>
        </ul>
       </nav>
     </div>

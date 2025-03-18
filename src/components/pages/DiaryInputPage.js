@@ -5,14 +5,14 @@ import useAudioRecorder from '../../hooks/useAudioRecorder';
 import '../../App.css';
 
 const DiaryInputPage = () => {
-  const [face, setFace] = useState('/images/kairu_normal.gif');
+  const [face, setFace] = useState('/images/kairu_normal_mic.gif');
   const [transcript, setTranscript] = useState('');
 
   const updateFaceExpression = (level) => {
-    if (level > 0.7) {
-      setFace('/images/kairu_happy.gif');
+    if (level > 0.05) {
+      setFace('/images/kairu_happy_mic.png');
     } else {
-      setFace('/images/kairu.png');
+      setFace('/images/kairu_normal_mic.png');
     }
   };
 
@@ -37,7 +37,6 @@ const DiaryInputPage = () => {
       <h1 className="h1">今日の日記を作成</h1>
 
       {/* transcript のリアルタイム表示（編集可能にする） */}
-      <label htmlFor="transcript">Transcript:</label><br />
       <textarea
         id="transcript"
         name="transcript"
@@ -45,13 +44,13 @@ const DiaryInputPage = () => {
         cols="50"
         value={transcript}
         onChange={(e) => setTranscript(e.target.value)}
+        placeholder="カイルくんの文字起こし"
+        className="transcript-box"
       />
 
 
       {/* --- ここに「送信ボタン」を配置 --- */}
-      <Link to="/diaries/edit" className="button-link" style={{ marginTop: '1rem', display: 'inline-block' }}>
-        送信
-      </Link>
+      
 
       {/* ミュートボタンを左・イルカの画像を右に配置 */}
       <div style={{ display: 'flex', flexDirection: 'row-reverse', alignItems: 'flex-end', margin: '1rem 0' }}>
@@ -66,7 +65,7 @@ const DiaryInputPage = () => {
         {/* ミュートボタン（左側に配置） */}
         <button
           onClick={recording ? stopRecording : startRecording}
-          className="button-link"
+          className="mic-button"
           style={{ marginRight: '1rem' }}
         >
           {recording ? (
@@ -81,9 +80,12 @@ const DiaryInputPage = () => {
       {/* 「Back to Diary List」へのリンクはそのまま残す */}
 
       <nav>
-        <ul>
-          <li><Link to="/diaries" className="button-link">Homeに戻る</Link></li>
-        </ul>
+        <ul className="nav-links">
+          <li><Link to="/home" className="button-link">
+          Homeに戻る</Link></li>
+          <li><Link to="/diaries/edit" className="button-link" style={{ marginTop: '1rem', display: 'inline-block' }}>
+          送信</Link></li>
+        </ul> 
       </nav>
     </div>
   );

@@ -17,6 +17,8 @@ import AppHeader from './components/pages/AppHeader'; // ヘッダー
 
 
 function App() {
+  console.count('App.js');
+  
   return (
     <div className="App">
      <AuthProvider>
