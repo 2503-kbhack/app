@@ -9,7 +9,8 @@ function AppHeader() {
       <img src="/Bazaart_20250317_040552_859.png" alt="App Icon" className="app-icon" />
       
       {/* アプリ名 */}
-      <h1 className="app-title">Coe-Nikki</h1>
+      <img src="/title_logo.png" alt="App Icon" className="app-icon" />
+      
 
     </header>
   );
