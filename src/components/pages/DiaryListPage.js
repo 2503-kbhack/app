@@ -42,8 +42,7 @@ const DiaryListPage = () => {
 
   return (
     <div>
-      <h1>Diary List</h1>
-      <p>日記一覧</p>
+      <h1 className="h1">Diary List</h1>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         {sortedDates.length !== 0 ? sortedDates.map((date) => (
           // カード全体をリンク化。to のパスは各日付の日記詳細ページに合わせる

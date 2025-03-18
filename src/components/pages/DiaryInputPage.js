@@ -34,7 +34,7 @@ const DiaryInputPage = () => {
 
   return (
     <div className="App-body">
-      <h1>今日の日記を作成</h1>
+      <h1 className="h1">今日の日記を作成</h1>
 
       {/* transcript のリアルタイム表示（編集可能にする） */}
       <label htmlFor="transcript">Transcript:</label><br />
