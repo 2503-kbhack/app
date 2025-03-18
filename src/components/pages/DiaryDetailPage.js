@@ -3,8 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { fetchDiaries } from '../../api/fetchDiaries';
 import { useAuth } from '../../hooks/AuthContext';
+import '../../App.css';
 
 const DiaryDetailPage = (props) => {
+  const { id } = useParams();
+  const [diary, setDiary] = useState([]);
   const { date } = useParams(); // ルートパラメータから日付 (YYYY-MM-DD) を取得
   const { user } = useAuth();
   const [diaries, setDiaries] = useState([]);

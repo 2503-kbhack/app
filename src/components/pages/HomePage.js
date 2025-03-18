@@ -17,7 +17,7 @@ function HomePage() {
   return (
     <div className="App-body"> {/* 新しいクラスを適用 */}
       <LogoutButton />
-      <h1>Home</h1>
+      <h1>ホーム</h1>
       <p>
         ようこそ、<strong>{profile.nickname}</strong> さん&nbsp;
         </p>
@@ -26,7 +26,7 @@ function HomePage() {
       </Link>
      
       <p>誕生日: {profile.birth_date}</p>
-      <p>性別: {profile.gender}</p>
+      <p>性別: {profile.gender === 'male' ? '男性' : profile.gender === 'female' ? '女性' : profile.gender}</p>
       <nav>
        <ul>
         <li><Link to="/diaries" className="button-link">日記一覧</Link></li>

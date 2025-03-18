@@ -6,7 +6,6 @@ import { useAuth } from '../../hooks/AuthContext';
 import { fetchDiaries } from '../../api/fetchDiaries';
 
 import '../../App.css';
-import AppHeader from './AppHeader';
 
 const DiaryListPage = () => {
   const { user } = useAuth();
@@ -42,12 +41,11 @@ const DiaryListPage = () => {
   );
 
   return (
-
     <div>
       <h1>Diary List</h1>
       <p>日記一覧</p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        {sortedDates.map((date) => (
+        {sortedDates.length !== 0 ? sortedDates.map((date) => (
           // カード全体をリンク化。to のパスは各日付の日記詳細ページに合わせる
           <Link
             to={`/diaries/${date}`}
@@ -71,14 +69,11 @@ const DiaryListPage = () => {
               </ul>
             </div>
           </Link>
-        ))}
+        )) : <p>日記がありません😭</p>}
       </div>
       <Link to="/diaries/new">New Diary</Link>
       <br />
       <Link to="/home">Back to Home</Link>
-
-
-
     </div>
   );
 };

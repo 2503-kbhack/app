@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Volume2, VolumeX } from 'lucide-react';
 import useAudioRecorder from '../../hooks/useAudioRecorder';
-
 import '../../App.css';
 
 const DiaryInputPage = () => {
