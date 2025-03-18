@@ -4,6 +4,7 @@ import { useAuth } from './AuthContext';
 
 const PrivateRoute = () => {
   const { user, loading } = useAuth();
+  console.log(user);
 
   if (loading) return <p>読み込み中...</p>;
 
