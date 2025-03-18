@@ -6,7 +6,7 @@ import { LogOut } from 'lucide-react';
 
 const LogoutButton = ({ className }) => {
   const navigate = useNavigate();
-  const { setUser, setProfile } = useAuth();
+  const { user, setUser, setProfile } = useAuth();
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
@@ -25,6 +25,10 @@ const LogoutButton = ({ className }) => {
     });
     navigate('/');
   };
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <button onClick={handleLogout} className={className}>
