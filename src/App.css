@@ -261,3 +261,58 @@ nav ul {
   appearance: none; /* デフォルトの矢印を消す */
   cursor: pointer;
 }
+
+.mic-button {
+  /* 背景色を薄いグレーに */
+  background-color: #eee;
+  /* アイコン（文字色）を濃いグレーに */
+  color: #555;
+
+  /* 正円にするための指定 */
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  
+  /* その他の調整 */
+  border: 1px solid #555;;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* ホバー時の色変更など、必要に応じて */
+.mic-button:hover {
+  background-color: #ddd;
+}
+
+.transcript-box {
+  width: 80%; /* 親要素いっぱいに広げる */
+  padding: 12px; /* 内側の余白（上下左右） */
+  line-height: 1.6; /* 行間を広くする */
+  font-size: 16px; /* 文字を見やすいサイズに */
+  border: 1px solid #ccc; /* 枠線の色 */
+  border-radius: 8px; /* 角を丸く */
+  background-color: #f9f9f9; /* 背景を少し淡く */
+  resize: vertical; /* 垂直方向のサイズ変更を許可 */
+}
+
+/* フォーカス時のスタイル */
+.transcript-box:focus {
+  outline: none;
+  border-color: #007bff; /* フォーカス時に青色を強調 */
+  background-color: #fff; /* 入力時に白背景 */
+}
+nav {
+  width: 80%; /* 親要素をいっぱいに広げる */
+}
+
+.nav-links {
+  display: flex;
+  justify-content: space-between; /* 左右に配置 */
+  align-items: center; /* 縦方向の中央揃え */
+  width: 100%; /* 幅を最大限に広げる */
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
