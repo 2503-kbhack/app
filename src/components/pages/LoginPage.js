@@ -41,7 +41,7 @@ const LoginPage = () => {
 
   return (
     <div className="App-body">
-      <h1>ログイン</h1>
+      <h1 className="h1">ログイン</h1>
       {error && <p className="error-message">{error}</p>}
       <button onClick={signInWithDiscord} className="button-link">
         Discord でログイン

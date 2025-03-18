@@ -3,19 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../api/supabaseClient';
 import { useAuth } from '../../hooks/AuthContext';
 
-const LogoutButton = () => {
+const LogoutButton = ({ className }) => {  // ①ここで className を受け取る
   const navigate = useNavigate();
   const { setUser, setProfile } = useAuth();
 
   const handleLogout = async () => {
-    // Supabase のサインアウト処理
     const { error } = await supabase.auth.signOut();
     if (error) {
       console.error('ログアウトエラー:', error.message);
       return;
     }
-
-    // グローバル状態のリセット（ユーザー情報、プロフィール情報をクリア）
     setUser(null);
     setProfile({
       nickname: '',
@@ -25,13 +22,11 @@ const LogoutButton = () => {
       location: '',
       hobby: '',
     });
-
-    // ログインページへリダイレクト
     navigate('/');
   };
 
   return (
-    <button onClick={handleLogout}>
+    <button onClick={handleLogout} className={className}> {/* ②ここで button に反映 */}
       ログアウト
     </button>
   );

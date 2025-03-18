@@ -105,7 +105,7 @@ const DiaryEditPage = () => {
 
   return (
     <div className="App-body"> {/* 新しいクラスを適用 */}
-      <h1>Diary Edit</h1>
+      <h1 className="h1">Diary Edit</h1>
       <p>ここで書き起こしたテキストを修正</p>
 
       {isLoading ? (
