@@ -3,6 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/AuthContext';
 import '../../App.css';
 import AppHeader from './AppHeader'; 
+import { Mail} from 'lucide-react';
+import { Mic } from 'lucide-react';
+import { FileText } from 'lucide-react';
+
 
 function HomePage() {
   const { user, profile, loading } = useAuth();
@@ -51,31 +55,19 @@ function HomePage() {
   <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
     <li>
       <Link to="/diaries" className="button-link">
-        <img 
-          src="/logo.png" 
-          alt="ロゴ" 
-          style={{ width: '20px', height: '20px', marginRight: '8px', verticalAlign: 'middle' }} 
-        />
+      <FileText size={20} style={{ marginRight: '8px', verticalAlign: 'middle' }} />
         今までの日記一覧
       </Link>
     </li>
     <li>
       <Link to="/diaries/new" className="button-link">
-        <img 
-          src="/logo.png" 
-          alt="ロゴ" 
-          style={{ width: '20px', height: '20px', marginRight: '8px', verticalAlign: 'middle' }} 
-        />
+      <Mic size={20} style={{ marginRight: '8px', verticalAlign: 'middle' }} />
         新しい日記を作成
       </Link>
     </li>
     <li>
       <Link to="/summary" className="button-link">
-        <img 
-          src="/logo.png" 
-          alt="ロゴ" 
-          style={{ width: '20px', height: '20px', marginRight: '8px', verticalAlign: 'middle' }} 
-        />
+      <Mail size={20} style={{ marginRight: '8px', verticalAlign: 'middle' }} />
         ふりかえりレター
       </Link>
     </li>

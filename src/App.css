@@ -370,7 +370,6 @@ nav {
   list-style: none;
 }
 
-
 /* プロフィール全体のコンテナ */
 .profile-container {
   background-color: #ffffff;
@@ -406,3 +405,9 @@ nav {
   color: #1C5B88;
   text-decoration: underline;
 }
+
+.link-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
