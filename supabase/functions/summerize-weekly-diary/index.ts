@@ -33,13 +33,15 @@ Deno.serve(async (req) => {
   }
 
   // パラメータチェック
-  const { diaries } = await req.json();
+  const { diariesandprofiles } = await req.json();
+  const diaries = diariesandprofiles.diaries
+  const profiles = diariesandprofiles.profileData
   console.log("diaries", diaries)
+  console.log("profiles", profiles)
   const diariesstring = JSON.stringify(diaries)
-  // 1週間分の日記データからサマリーの生成
   const result = await model.generateContent(`
       あなたは日記アプリ内のイルカのキャラクターです。ユーザーに優しい口調(親しみやすさを持つカジュアルな口語体)で語りかけます。
-      ユーザー情報：nickname:いっさ age:20 occupation:大学生 hobby:ゴルフ、プログラミング
+      ユーザー情報：ニックネーム: ${profiles.nickname} 年齢:${profiles.age} 職業:${profiles.occupation} 趣味:${profiles.hobby}
       ---
       以下は1週間分の日記の代表的な出来事の集合です。週末にその週に起こったを振り返ると共に締めくくりに一言コメントを添えてください。
       最終的な出力は Result として定義されています。
@@ -58,7 +60,7 @@ Deno.serve(async (req) => {
         "comment": "string"
       } 
      
-    `)
+     `)
   console.log("prompt",`
       あなたは日記アプリ内のイルカのキャラクターです。ユーザーに優しい口調で語りかけます。
       ユーザー情報：nickname:いっさ age:20 occupation:大学生 hobby:ゴルフ、プログラミング
