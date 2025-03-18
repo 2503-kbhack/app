@@ -33,7 +33,7 @@ const DiaryDetailPage = (props) => {
     };
 
     getDiaries();
-  }, [user, date]);
+  }, []);
   console.log(diaries);
   if (errorMsg) {
     return <div>{errorMsg}</div>;
