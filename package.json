@@ -24,6 +24,7 @@
     "supabase:start": "npx supabase start",
     "supabase:stop": "npx supabase stop",
     "db:reset": "npx supabase db reset",
+    "db:push": "npx supabase db push",
     "supabase:reload": "npx supabase stop && npx supabase start",
     "edge:dev": "npx supabase functions serve --no-verify-jwt --env-file .env",
     "edge:serve": "npx supabase functions serve --env-file .env",
