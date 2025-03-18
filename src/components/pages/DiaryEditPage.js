@@ -92,8 +92,7 @@ const DiaryEditPage = () => {
     const { data, error } = await supabase
       .from('Diaries')
       .insert(diariesToInsert)
-      .select()
-      .single();
+      .select();
     
     if (error) {
       console.error('Error inserting diaries:', error);
