@@ -3,8 +3,6 @@ import { supabase } from '../../api/supabaseClient';
 import { useAuth } from '../../hooks/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import '../../App.css';
-import AppHeader from './AppHeader'; 
-
 
 function ProfileEditPage() {
   const { user, profile, setProfile } = useAuth();
@@ -16,7 +14,6 @@ function ProfileEditPage() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
-  // 初期値を既存の profile から設定
   useEffect(() => {
     if (profile) {
       setOccupation(profile.occupation || '');
@@ -30,14 +27,9 @@ function ProfileEditPage() {
     setLoading(true);
     setMessage('');
 
-    // profiles テーブルの該当レコードを更新する
     const { data, error } = await supabase
       .from('profiles')
-      .update({
-        occupation: occupation,
-        location: location,
-        hobby: hobby
-      })
+      .update({ occupation, location, hobby })
       .eq('id', user.id)
       .select()
       .single();
@@ -47,27 +39,26 @@ function ProfileEditPage() {
       setMessage('プロフィール更新に失敗しました。');
     } else {
       setMessage('プロフィール更新に成功しました。');
-      // AuthContext の profile を更新
       setProfile((prev) => ({
         ...prev,
         occupation: data.occupation,
         location: data.location,
         hobby: data.hobby
       }));
-      // 更新後、/profile や /home へ遷移（ここでは /profile に戻す例）
       navigate('/profile');
     }
     setLoading(false);
   };
 
   return (
-    <div className="App-body"> {/* 新しいクラスを適用 */}
+    <div className="profile-edit-container">
       <h2>プロフィールの詳細を編集</h2>
-        <p>後で追加することも出来ます</p>   
-      {message && <p>{message}</p>}
-        
-      <form onSubmit={handleSubmit}>
-        <div>
+      <p className="info-text">後で追加することもできます</p>
+      
+      {message && <p className="message-text">{message}</p>}
+
+      <form onSubmit={handleSubmit} className="profile-edit-form">
+        <div className="form-group">
           <label htmlFor="occupation">職業</label>
           <input
             id="occupation"
@@ -77,7 +68,7 @@ function ProfileEditPage() {
             placeholder="職業を入力"
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="location">居住地</label>
           <input
             id="location"
@@ -87,7 +78,7 @@ function ProfileEditPage() {
             placeholder="居住地を入力"
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="hobby">趣味</label>
           <input
             id="hobby"
@@ -97,7 +88,7 @@ function ProfileEditPage() {
             placeholder="趣味を入力"
           />
         </div>
-        <button type="submit" disabled={loading} className="button-link">
+        <button type="submit" disabled={loading} className="submit-button">
           {loading ? '更新中...' : 'ホームへ'}
         </button>
       </form>

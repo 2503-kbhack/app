@@ -6,7 +6,6 @@ import { useAuth } from '../../hooks/AuthContext';
 import { fetchDiaries } from '../../api/fetchDiaries';
 
 import '../../App.css';
-import AppHeader from './AppHeader';
 
 const DiaryListPage = () => {
   const { user } = useAuth();
@@ -30,7 +29,7 @@ const DiaryListPage = () => {
       <h1>日記一覧</h1>
 
 
-      <div className="diary-list-container">
+      {diaries.length !== 0 ? <div className="diary-list-container">
         <ul className="diary-list">
           {diaries.map(diary => (
             <li key={diary.id} className="diary-card">
@@ -41,8 +40,10 @@ const DiaryListPage = () => {
           ))}
         </ul>
       </div>
+        : <p>日記がありません😭</p>
+      }
 
-      <Link to={`/`} className="button-link">Homeに戻る</Link>
+      <Link to={`/home`} className="button-link">Homeに戻る</Link>
     </div>
   );
 };
