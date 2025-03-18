@@ -23,7 +23,7 @@
   height: 60px;           /* ヘッダーの高さ */
   display: flex;          /* 横並びに要素を配置 */
   align-items: center;    /* 縦方向の中央揃え */
-  background-color: #f5f5f5; /* 背景色など自由に設定 */
+  background-color: #B4E0F8;/* 背景色など自由に設定 */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 0 20px;
   z-index: 999;           /* コンテンツの上に重ねるためにz-indexを設定 */
@@ -39,7 +39,11 @@
 .app-title {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #333;
+  color: #E6566C;
+}
+
+.h1 {
+  color: #E6566C;
 }
 
 /* 
@@ -64,14 +68,14 @@ nav ul {
 }
 
 .App-body {
-  background: linear-gradient(to bottom, #000c1f, #003366);
+  background: #DEEEFA;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #1C5B88;
 }
 
 /* リンクボタンのスタイル */
@@ -79,11 +83,11 @@ nav ul {
   display: inline-block;
   text-decoration: none;
   background-color: transparent;
-  color: #61dafb;
+  color: #1C5B88;
   font-size: 16px;
   font-weight: bold;
   padding: 8px 16px;
-  border: 2px solid #61dafb;
+  border: 2px solid #1C5B88;
   border-radius: 6px;
   transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
@@ -151,8 +155,8 @@ nav ul {
   display: inline-block;
   margin-top: 16px;
   padding: 8px 16px;
-  background-color: #4477ee;
-  color: #fff;
+  background-color: #B4E0F8;
+  color: ##1C5B88;
   text-decoration: none;
   border-radius: 4px;
 }
