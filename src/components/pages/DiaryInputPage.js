@@ -6,14 +6,14 @@ import useAudioRecorder from '../../hooks/useAudioRecorder';
 import '../../App.css';
 
 const DiaryInputPage = () => {
-  const [face, setFace] = useState('/images/kairu_normal.gif');
+  const [face, setFace] = useState('/images/kairu_normal_mic.gif');
   const [transcript, setTranscript] = useState('');
 
   const updateFaceExpression = (level) => {
     if (level > 0.7) {
-      setFace('/images/kairu_happy.gif');
+      setFace('/images/kairu_happy_mic.png');
     } else {
-      setFace('/images/kairu.png');
+      setFace('/images/kairu_normal_mic.png');
     }
   };
 
