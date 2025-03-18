@@ -33,7 +33,7 @@ const DiaryDetailPage = (props) => {
     };
 
     getDiaries();
-  }, [user, date]);
+  }, []);
   console.log(diaries);
   if (errorMsg) {
     return <div>{errorMsg}</div>;
@@ -45,7 +45,7 @@ const DiaryDetailPage = (props) => {
 
   return (
     <div>
-      <h1>{date} の日記詳細</h1>
+      <h1 className="h1">{date} の日記詳細</h1>
       {diaries.map((diary) => (
         <div
           key={diary.id}

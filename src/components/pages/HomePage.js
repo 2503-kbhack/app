@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/AuthContext';
-import LogoutButton from '../auth/LogoutButton';
 import '../../App.css';
 import AppHeader from './AppHeader'; 
 
@@ -15,8 +14,7 @@ function HomePage() {
   let active_rate = Math.random() * 100;  // TODO: アクティブ率を計算する
   return (
     <div className="App-body"> {/* 新しいクラスを適用 */}
-      <LogoutButton />
-      <h1>ホーム</h1>
+      <h1 className="h1">ホーム</h1>
       {
         active_rate <= 60 && active_rate >= 30 ? (
           <img
@@ -50,6 +48,7 @@ function HomePage() {
        <ul>
         <li><Link to="/diaries" className="button-link">日記一覧</Link></li>
         <li><Link to="/diaries/new" className="button-link">新しい日記を作成</Link></li>
+          <li><Link to="/summary"> Weekly Summary</Link></li>
        </ul>
       </nav>
     </div>
