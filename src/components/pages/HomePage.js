@@ -12,7 +12,7 @@ function HomePage() {
                 読み込み中...</div>;
   }
   console.log(profile);
-  let active_rate = 0;
+  let active_rate = Math.random() * 100;  // TODO: アクティブ率を計算する
   return (
     <div className="App-body"> {/* 新しいクラスを適用 */}
       <LogoutButton />
