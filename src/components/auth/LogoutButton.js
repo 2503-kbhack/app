@@ -2,8 +2,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../api/supabaseClient';
 import { useAuth } from '../../hooks/AuthContext';
+import { LogOut } from 'lucide-react';
 
-const LogoutButton = ({ className }) => {  // ①ここで className を受け取る
+const LogoutButton = ({ className }) => {
   const navigate = useNavigate();
   const { setUser, setProfile } = useAuth();
 
@@ -26,8 +27,8 @@ const LogoutButton = ({ className }) => {  // ①ここで className を受け�
   };
 
   return (
-    <button onClick={handleLogout} className={className}> {/* ②ここで button に反映 */}
-      ログアウト
+    <button onClick={handleLogout} className={className}>
+      <LogOut />
     </button>
   );
 };

@@ -44,16 +44,14 @@ html, body {
   margin-right: 10px; 
 }
 
-/* ここが反映されるためには、ボタンに logout-button クラスが必要 */
 .logout-button {
   display: flex; 
   align-items: center;
   position: absolute;
-  right: 20%; 
+  right: 15%; 
   color:#1C5B88;
-  border: 1px solid #1C5B88;
-  border-radius: 6px;   
-  
+  border: none;
+  background-color: transparent;
 }
 
 
