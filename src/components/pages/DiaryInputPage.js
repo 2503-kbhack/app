@@ -8,8 +8,6 @@ import '../../App.css';
 const DiaryInputPage = () => {
   const [face, setFace] = useState('/images/jitrvOHWDbtU1aIrfoUQ1742202113-1742202203.gif');
   const [transcript, setTranscript] = useState('');
-  const [muted, setMuted] = useState(false);
-
 
   const updateFaceExpression = (level) => {
     if (level > 0.7) {
@@ -32,11 +30,6 @@ const DiaryInputPage = () => {
   useEffect(() => {
     updateFaceExpression(audioLevel);
   }, [audioLevel]);
-
-  // ミュート状態を切り替える
-  const toggleMute = () => {
-    setMuted((prevMuted) => !prevMuted);
-  };
 
   return (
     <div className="App-body">
