@@ -73,9 +73,10 @@ const DiaryDetailPage = (props) => {
   </div>
         </div>
       ))}
+      <div className="link-container">
       <Link to="/diaries" className="button-link">日記一覧に戻る</Link>
-      <br />
       <Link to="/home" className="button-link">ホームに戻る</Link>
+      </div>
     </div>
 
   );

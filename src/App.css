@@ -12,6 +12,7 @@ html, body {
   margin: 0;
   padding: 0;
   background: #DEEEFA;
+  
 }
 
 .App-logo {
@@ -30,7 +31,7 @@ html, body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 60px;
+  height: 80px;
   display: flex;         /* 横並び */
   align-items: center;  
   background-color: #B4E0F8;
@@ -75,18 +76,58 @@ html, body {
 */
 body {
   margin: 0;
-  padding-top: 60px; /* ヘッダーと同じ高さ分、コンテンツを下げる */
+  padding-top: 80px; /* ヘッダーと同じ高さ分、コンテンツを下げる */
 }
 
 
-/* ul を横並びにする */
-nav ul {
-  display: flex;   /* 横並び */
+
+/* 親コンテナを画面いっぱいにし、Flexで中央寄せ */
+.center-container {
+  display: flex;
+  justify-content: center; /* 横方向の中央寄せ */
+  align-items: center;     /* 縦方向の中央寄せ（必要なければ削除） */
+  width: 100%;
+  height: 100vh;           /* 画面全体を埋めたい場合 */
+  /* ↓デバッグ用に背景色を付けるとわかりやすい */
+  background-color: #f0f0f0;
+}
+
+/* 縦並び・左揃えにしたい UL */
+.home-button {
   list-style: none;
   padding: 0;
   margin: 0;
-  gap: 16px;      /* ボタンの間隔を 16px に設定 */
+
+  /* Flex で縦並び＆左揃え */
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; /* 左揃え */
+
+  /* デバッグしやすいように枠線など */
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  gap: 16px; /* li の間隔 */
 }
+
+/* li の幅を固定 (同じ長さにしたいなら) */
+.home-button li {
+  width: 200px;
+}
+
+/* リンクをブロックにして左寄せ */
+.home-button li .button-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  text-decoration: none;
+  color: #333;
+  /* ボタンらしさを出すなら例として */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+
 
 .App-body {
   background: #DEEEFA;
@@ -328,3 +369,45 @@ nav {
   margin: 0;
   list-style: none;
 }
+
+/* プロフィール全体のコンテナ */
+.profile-container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 30px auto;
+}
+
+/* 段落の基本設定 */
+.profile-container p {
+  color: #1C5B88;
+  font-size: 16px;
+  margin: 15px 0;
+}
+
+/* 強調テキストのカラー */
+.profile-container p strong {
+  color: #E6566C;
+}
+
+/* リンクのスタイル */
+.profile-container a {
+  color: #1C5B88;;
+  text-decoration: none;
+  font-size: 0.9em;
+  transition: color 0.3s ease;
+}
+
+/* リンクのホバー時の装飾 */
+.profile-container a:hover {
+  color: #1C5B88;
+  text-decoration: underline;
+}
+
+.link-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+

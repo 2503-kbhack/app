@@ -81,9 +81,10 @@ const DiaryListPage = () => {
           </Link>
         )) : <p>日記がありません😭</p>}
       </div>
-      <Link to="/diaries/new" className="button-link">New Diary</Link>
-      <br />
-      <Link to="/home" className="button-link">Back to Home</Link>
+      <div className="link-container">
+      <Link to="/diaries/new" className="button-link">新しい日記を作成</Link>
+      <Link to="/home" className="button-link">ホームに戻る</Link>
+      </div>
     </div>
   );
 };
