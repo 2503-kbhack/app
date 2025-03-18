@@ -15,6 +15,8 @@ import { AuthProvider } from './hooks/AuthContext';
 import './App.css';
 
 function App() {
+  console.count('App.js');
+  
   return (
     <AuthProvider>
       <Router>

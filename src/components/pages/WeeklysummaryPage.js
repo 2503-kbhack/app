@@ -2,20 +2,25 @@ import { fetchDiaries } from "../../api/fetchDiaries";
 import { useAuth } from "../../hooks/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import useSWR from "swr";
+
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+const API_URL = process.env.REACT_APP_SUPABASE_URL;
 
 const WeeklySummary = () => {
-  const { user, profile } = useAuth();
+  const { user, profile ,setIsLoading} = useAuth();
+  const [comment, setComment] = useState('');
   const [diaries, setDiaries] = useState([]);
   const date = new Date().toLocaleDateString('ja-JP');
-  console.log("Today:", date);
+  const oneWeekAgo = new Date();
+  oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+  const oneWeekAgoDate = oneWeekAgo.toLocaleDateString('ja-JP');
 
   useEffect(() => {
     const getDiaries = async () => {
 
-      // 一週間前の日付を取得
-      const oneWeekAgo = new Date();
-      oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-      const oneWeekAgoDate = oneWeekAgo.toLocaleDateString('ja-JP');
+   
+
       const data = await fetchDiaries({
         author: user.id,
         startDate: oneWeekAgoDate,
@@ -23,40 +28,58 @@ const WeeklySummary = () => {
         is_important: true,
        
       });
-      const diarieslist = data.map((diary) => {
-        return {
+      console.log(data);
+      const diaries = data.map((diary) => {
+        return {  
           date: diary.date,
           title: diary.title,
           contents: diary.contents,
         };
       });
       
-      diarieslist.sort((a, b) => new Date(a.date) - new Date(b.date));
-      console.log("Weekly Summary:", diarieslist);
-      setDiaries(diarieslist);
+      diaries.sort((a, b) => new Date(a.date) - new Date(b.date));
+      
+      console.log(diaries);
+      fetch(`${API_URL}/functions/v1/summerize-weekly-diary`, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ diaries}),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Failed to generate diary');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setComment(data);
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+  
     };
-    getDiaries();
+   getDiaries();
+    console.log("Weekly Summary:", diaries);
   }, []);
+
+// commentの中身
+  // {
+  //   "weeklySummary": "string",
+  //   "weeklyReflection": "string",
+  //   "comment": "string"
+  // }
   return (
     <div>
       <h1>Weekly Summary</h1>
-      <p>週間サマリー</p>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        {diaries.map((diary) => (
-          <div
-            key={diary.id}
-            style={{
-              border: '1px solid #ccc',
-              borderRadius: '4px',
-              padding: '1rem',
-              marginBottom: '1rem',
-            }}
-          >
-            <h2>{diary.title}</h2>
-            <p>{diary.contents}</p>
-          </div>
-        ))}
-      </div>
+      <p>カイル君と１週間の振り返り🐬</p>
+      <p>{comment.weeklySummary}</p>
+      <p>{comment.weeklyReflection}</p>
+      <p>{comment.comment}</p>
     </div>
   );
 }

@@ -26,6 +26,7 @@ function HomePage() {
         <ul>
           <li><Link to="/diaries">Diary List</Link></li>
           <li><Link to="/diaries/new">New Diary</Link></li>
+          <li><Link to="/summary"> Weekly Summary</Link></li>
         </ul>
       </nav>
     </div>

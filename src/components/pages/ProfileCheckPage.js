@@ -46,7 +46,7 @@ function ProfileCheckPage() {
     };
 
     checkProfile();
-  }, [user, navigate, setProfile]);
+  }, []);
 
   if (loading) {
     return <div>プロフィールをチェックしています...</div>;
