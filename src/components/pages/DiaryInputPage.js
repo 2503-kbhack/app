@@ -49,7 +49,7 @@ const DiaryInputPage = () => {
 
 
       {/* --- ここに「送信ボタン」を配置 --- */}
-      <Link to="/diaries/:id/edit" className="button-link" style={{ marginTop: '1rem', display: 'inline-block' }}>
+      <Link to="/diaries/edit" className="button-link" style={{ marginTop: '1rem', display: 'inline-block' }}>
         送信
       </Link>
 
