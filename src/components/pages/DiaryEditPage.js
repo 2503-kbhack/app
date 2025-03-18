@@ -44,6 +44,8 @@ const DiaryEditPage = () => {
   const transcript = sessionStorage.getItem('transcript');
 
   useEffect(() => {
+    console.log(transcript);
+    
     fetch(`${API_URL}/functions/v1/generate-diary`, {
       method: 'POST',
       mode: 'cors',

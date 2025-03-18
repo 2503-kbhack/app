@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Volume2, VolumeX } from 'lucide-react';
 import useAudioRecorder from '../../hooks/useAudioRecorder';
 import '../../App.css';
@@ -7,7 +7,8 @@ import '../../App.css';
 const DiaryInputPage = () => {
   const [face, setFace] = useState('/images/kairu_normal_mic.gif');
   const [transcript, setTranscript] = useState('');
-
+  const navigate = useNavigate();
+  
   const updateFaceExpression = (level) => {
     if (level > 0.05) {
       setFace('/images/kairu_happy_mic.png');
@@ -31,6 +32,11 @@ const DiaryInputPage = () => {
     console.log(audioLevel);
     updateFaceExpression(audioLevel);
   }, [audioLevel]);
+
+  const handleClick = () => {
+    sessionStorage.setItem('transcript', transcript);
+    navigate("/diaries/edit");
+  }
 
   return (
     <div className="App-body">
@@ -83,8 +89,9 @@ const DiaryInputPage = () => {
         <ul className="nav-links">
           <li><Link to="/home" className="button-link">
           Homeに戻る</Link></li>
-          <li><Link to="/diaries/edit" className="button-link" style={{ marginTop: '1rem', display: 'inline-block' }}>
-          送信</Link></li>
+          <li>
+          <button onClick={handleClick} className="button-link" style={{ marginTop: '1rem', display: 'inline-block' }}>送信</button>
+          </li>
         </ul> 
       </nav>
     </div>
