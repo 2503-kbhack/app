@@ -6,6 +6,7 @@ import AppHeader from './AppHeader';
 import { Mail} from 'lucide-react';
 import { Mic } from 'lucide-react';
 import { FileText } from 'lucide-react';
+import { Edit } from 'lucide-react';
 
 import {fetchDiaries} from '../../api/fetchDiaries';
 import useSWR from 'swr';
@@ -62,14 +63,15 @@ function HomePage() {
       }
 
 <div className="profile-container">
+      <Link to="/profile/edit" style={{ fontSize: '0.8em' }}>
+      <Edit size={20} style={{ marginRight: '8px', verticalAlign: 'middle' }} />   
+      </Link>
       <p>
         ようこそ、<strong>{profile.nickname}</strong> さん&nbsp;
       </p>
       <p>誕生日: {profile.birth_date}</p>
       <p>性別: {profile.gender === 'male' ? '男性' : profile.gender === 'female' ? '女性' : profile.gender}</p>
-      <Link to="/profile/edit" style={{ fontSize: '0.8em' }}>
-          [プロフィールの詳細を編集]
-      </Link>
+  
       </div>
       <nav>
   <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
