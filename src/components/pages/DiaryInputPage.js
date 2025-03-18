@@ -6,14 +6,14 @@ import useAudioRecorder from '../../hooks/useAudioRecorder';
 import '../../App.css';
 
 const DiaryInputPage = () => {
-  const [face, setFace] = useState('/images/jitrvOHWDbtU1aIrfoUQ1742202113-1742202203.gif');
+  const [face, setFace] = useState('/images/kairu_normal.gif');
   const [transcript, setTranscript] = useState('');
 
   const updateFaceExpression = (level) => {
     if (level > 0.7) {
-      setFace('/images/IE0M0i8lxsZaEuiESpwu1742202031-1742202041.gif');
+      setFace('/images/kairu_happy.gif');
     } else {
-      setFace('/images/jitrvOHWDbtU1aIrfoUQ1742202113-1742202203.gif');
+      setFace('/images/kairu.png');
     }
   };
 
@@ -21,13 +21,15 @@ const DiaryInputPage = () => {
   const { recording, startRecording, stopRecording, audioLevel, transcript: recordedTranscript } = useAudioRecorder({});
 
   useEffect(() => {
+    
     if (recordedTranscript) {
       setTranscript(recordedTranscript);
     }
   }, [recordedTranscript]);
-
-
+  
+  
   useEffect(() => {
+    console.log(audioLevel);
     updateFaceExpression(audioLevel);
   }, [audioLevel]);
 
