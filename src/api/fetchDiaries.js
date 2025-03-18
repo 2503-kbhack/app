@@ -9,11 +9,13 @@ import { supabase } from './supabaseClient';
  * @param {string} [filters.startDate] - 作成日の開始日 (例: '2021-01-01') 作成日 >= startDate
  * @param {string} [filters.endDate] - 作成日の終了日 (例: '2021-12-31') 作成日 <= endDate
  * @param {number|string} [filters.id] - 日記IDで絞り込み
+ * @param {boolean} [filters.is_important] - 重要な日記のみ取得するかどうか
  * @returns {Array|null} 絞り込みに合致した日記データの配列、エラー発生時は null
  */
 export const fetchDiaries = async (filters = {}) => {
   try {
     let query = supabase.from('Diaries').select('*');
+    console.log(filters);
 
     // 作者で絞り込み (Author_id カラムが存在する前提)
     if (filters.author) {
@@ -21,15 +23,18 @@ export const fetchDiaries = async (filters = {}) => {
     }
     // 作成日の開始日で絞り込み (created_at >= startDate)
     if (filters.startDate) {
-      query = query.gte('created_at', filters.startDate);
+      query = query.gte('date', filters.startDate);
     }
     // 作成日の終了日で絞り込み (created_at <= endDate)
     if (filters.endDate) {
-      query = query.lte('created_at', filters.endDate);
+      query = query.lte('date', filters.endDate);
     }
     // 日記IDで絞り込み
     if (filters.id) {
       query = query.eq('id', filters.id);
+    }
+    if (filters.is_important) {
+      query = query.eq('is_important', true);
     }
 
     // 作成日の降順で並べ替え

@@ -1,0 +1,1 @@
+ALTER TABLE public."Diaries" ADD COLUMN "date" date NOT NULL default now();

@@ -9,6 +9,7 @@ import DiaryListPage from './components/pages/DiaryListPage';
 import DiaryDetailPage from './components/pages/DiaryDetailPage';
 import DiaryInputPage from './components/pages/DiaryInputPage';
 import DiaryEditPage from './components/pages/DiaryEditPage';
+import WeeklySummary from './components/pages/WeeklysummaryPage';
 import PrivateRoute from './hooks/PrivateRoute';
 import { AuthProvider } from './hooks/AuthContext';
 import './App.css';
@@ -33,9 +34,10 @@ function App() {
             <Route path="/profile/create" element={<ProfileCreationPage />} />
             <Route path="/profile/edit" element={<ProfileEditPage />} />
             <Route path="/home" element={<HomePage />} />
+            <Route path="/summary" element={<WeeklySummary />} />
             <Route path="/diaries" element={<DiaryListPage />} />
             <Route path="/diaries/new" element={<DiaryInputPage />} />
-            <Route path="/diaries/:id" element={<DiaryDetailPage />} />
+            <Route path="/diaries/:date" element={<DiaryDetailPage />} />
             <Route path="/diaries/:id/edit" element={<DiaryEditPage />} />
            </Route>
          </Routes>
