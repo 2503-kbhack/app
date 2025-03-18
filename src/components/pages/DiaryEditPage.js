@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/AuthContext';
 import { supabase } from '../../api/supabaseClient';
 import { useNavigate } from 'react-router-dom';
-
 import '../../App.css';
 import AppHeader from './AppHeader'; 
 
@@ -42,7 +41,7 @@ const DiaryEditPage = () => {
   };
 
   const transcript = sessionStorage.getItem('transcript');
-
+  console.log(transcript);
   useEffect(() => {
     fetch(`${API_URL}/functions/v1/generate-diary`, {
       method: 'POST',
@@ -98,7 +97,8 @@ const DiaryEditPage = () => {
       console.error('Error inserting diaries:', error);
     } else {
       console.log('Diaries inserted successfully:', data);
-      navigate("/diaries");
+
+    navigate("/diaries/embedding", data);
     }
     
   };

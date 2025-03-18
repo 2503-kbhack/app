@@ -8,7 +8,6 @@ const API_KEY = Deno.env.get("GEMINI_API_KEY")
 if (!API_KEY) {
   throw new Error("GEMINI_API_KEY is required. check your .env file")
 }
-
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
 
