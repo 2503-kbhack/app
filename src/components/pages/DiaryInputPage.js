@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Volume2, VolumeX } from 'lucide-react';
 import useAudioRecorder from '../../hooks/useAudioRecorder';
-
 import '../../App.css';
 
 const DiaryInputPage = () => {
@@ -35,7 +34,7 @@ const DiaryInputPage = () => {
 
   return (
     <div className="App-body">
-      <h1>今日の日記を作成</h1>
+      <h1 className="h1">今日の日記を作成</h1>
 
       {/* transcript のリアルタイム表示（編集可能にする） */}
       <label htmlFor="transcript">Transcript:</label><br />
@@ -50,7 +49,7 @@ const DiaryInputPage = () => {
 
 
       {/* --- ここに「送信ボタン」を配置 --- */}
-      <Link to="/diaries/:id/edit" className="button-link" style={{ marginTop: '1rem', display: 'inline-block' }}>
+      <Link to="/diaries/edit" className="button-link" style={{ marginTop: '1rem', display: 'inline-block' }}>
         送信
       </Link>
 

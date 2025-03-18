@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/AuthContext';
-import LogoutButton from '../auth/LogoutButton';
 import '../../App.css';
 import AppHeader from './AppHeader'; 
 
@@ -12,11 +11,10 @@ function HomePage() {
                 読み込み中...</div>;
   }
   console.log(profile);
-  let active_rate = 50;
+  let active_rate = Math.random() * 100;  // TODO: アクティブ率を計算する
   return (
     <div className="App-body"> {/* 新しいクラスを適用 */}
-      <LogoutButton />
-      <h1>Home</h1>
+      <h1 className="h1">ホーム</h1>
       {
         active_rate <= 60 && active_rate >= 30 ? (
           <img
@@ -45,7 +43,7 @@ function HomePage() {
           [プロフィールの詳細を編集]
       </Link>
       <p>誕生日: {profile.birth_date}</p>
-      <p>性別: {profile.gender}</p>
+      <p>性別: {profile.gender === 'male' ? '男性' : profile.gender === 'female' ? '女性' : profile.gender}</p>
       <nav>
        <ul>
         <li><Link to="/diaries" className="button-link">日記一覧</Link></li>

@@ -31,7 +31,7 @@ const LoginPage = () => {
     console.log('Discord ログイン処理');
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'discord',
-      options: { redirectTo: `${BASE_URL}/home` },
+      options: { redirectTo: `${BASE_URL}/profile` },
     });
     if (error) {
       console.error('Discord ログインエラー:', error.message);
@@ -41,7 +41,7 @@ const LoginPage = () => {
 
   return (
     <div className="App-body">
-      <h1>ログイン</h1>
+      <h1 className="h1">ログイン</h1>
       {error && <p className="error-message">{error}</p>}
       <button onClick={signInWithDiscord} className="button-link">
         Discord でログイン

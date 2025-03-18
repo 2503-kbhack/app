@@ -9,6 +9,7 @@ import DiaryListPage from './components/pages/DiaryListPage';
 import DiaryDetailPage from './components/pages/DiaryDetailPage';
 import DiaryInputPage from './components/pages/DiaryInputPage';
 import DiaryEditPage from './components/pages/DiaryEditPage';
+import WeeklySummary from './components/pages/WeeklysummaryPage';
 import PrivateRoute from './hooks/PrivateRoute';
 import { AuthProvider } from './hooks/AuthContext';
 import './App.css';
@@ -17,29 +18,32 @@ import AppHeader from './components/pages/AppHeader'; // ヘッダー
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
+    <div className="App">
+     <AuthProvider>
+       <Router>
 
-        {/* ヘッダーを全ページ共通で表示する場合 */}
-        <AppHeader />  
-        <Routes>
+         {/* ヘッダーを全ページ共通で表示する場合 */}
+         <AppHeader />  
+         <Routes>
           
-          {/* 公開ルート */}
-          <Route path="/" element={<LoginPage />} />
-          {/* 保護したいルート群を PrivateRoute でラップ */}
-          <Route element={<PrivateRoute />}>
+           {/* 公開ルート */}
+           <Route path="/" element={<LoginPage />} />
+           {/* 保護したいルート群を PrivateRoute でラップ */}
+           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<ProfileCheckPage />} />          
             <Route path="/profile/create" element={<ProfileCreationPage />} />
             <Route path="/profile/edit" element={<ProfileEditPage />} />
             <Route path="/home" element={<HomePage />} />
+            <Route path="/summary" element={<WeeklySummary />} />
             <Route path="/diaries" element={<DiaryListPage />} />
             <Route path="/diaries/new" element={<DiaryInputPage />} />
-            <Route path="/diaries/:id" element={<DiaryDetailPage />} />
+            <Route path="/diaries/:date" element={<DiaryDetailPage />} />
             <Route path="/diaries/:id/edit" element={<DiaryEditPage />} />
-          </Route>
-        </Routes>
-      </Router>
-    </AuthProvider>
+           </Route>
+         </Routes>
+       </Router>
+     </AuthProvider>
+    </div>
   );
 }
 
