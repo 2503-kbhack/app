@@ -1,6 +1,8 @@
 import React ,{useState,useEffect} from 'react';
 import { Link,useParams } from 'react-router-dom';
 import { fetchDiaries } from '../../api/fetchDiaries';
+import '../../App.css';
+
 const DiaryDetailPage = (props) => {
   const { id } = useParams();
   const [diary, setDiary] = useState([]);
@@ -25,9 +27,9 @@ const DiaryDetailPage = (props) => {
     <div>
       <h1>{diary[0].title}</h1>
       <p>{diary[0].contents}</p>
-      <Link to={`/diaries`}>Back to Diaries </Link>
-      <br />
-      <Link to={`/`}>Back to Home</Link>
+      <Link to={`/diaries`} className="button-link">Back to Diaries </Link>
+      <br/>
+      <Link to={`/home`} className="button-link">Back to Home</Link>
       
      
     </div>
