@@ -50,19 +50,33 @@ const DiaryDetailPage = (props) => {
         <div
           key={diary.id}
           style={{
-            border: '1px solid #ccc',
-            borderRadius: '4px',
-            padding: '1rem',
-            marginBottom: '1rem',
+            display: 'flex', // フレックスボックスを有効化
+            justifyContent: 'center', // 水平方向の中央寄せ
+            alignItems: 'center', // 垂直方向の中央寄せ
+            
           }}
         >
-          <h2>{diary.title}</h2>
-          <p>{diary.contents}</p>
+          <div
+    style={{
+      border: '1px solid #ccc',
+      borderRadius: '4px',
+      padding: '1rem',
+      marginBottom: '0.5rem', // ここを小さくする
+      width: '80%',
+      maxWidth: '600px', // 最大幅を設定するとバランスがよくなる
+      backgroundColor: '#fff',
+      boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+    }}
+  >
+    <h2 style={{ textAlign: 'center' }}>{diary.title}</h2>
+    <p>{diary.contents}</p>
+  </div>
         </div>
       ))}
-      <Link to="/diaries">Back to Diaries</Link>
-      <br />
-      <Link to="/">Back to Home</Link>
+      <div className="link-container">
+      <Link to="/diaries" className="button-link">日記一覧に戻る</Link>
+      <Link to="/home" className="button-link">ホームに戻る</Link>
+      </div>
     </div>
 
   );
