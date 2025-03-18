@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/AuthContext';
 import { fetchProfile } from '../../api/fetchProfile'; // ここで先ほどの fetchProfile.js をインポート
+import '../../App.css';
+
 
 function ProfileCheckPage() {
   const { user, profile, setProfile } = useAuth(); // AuthContext からユーザーとプロフィールを取得
@@ -49,11 +51,13 @@ function ProfileCheckPage() {
   }, []);
 
   if (loading) {
-    return <div>プロフィールをチェックしています...</div>;
+    return <div className="App-body"> {/* 新しいクラスを適用 */}
+    プロフィールをチェックしています...</div>;
   }
 
   // ほぼリダイレクトされるので、ここが表示されることは少ない
-  return <div>処理中...</div>;
+  return <div className="App-body"> {/* 新しいクラスを適用 */}
+  処理中...</div>;
 }
 
 export default ProfileCheckPage;

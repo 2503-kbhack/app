@@ -1,0 +1,1 @@
+ALTER TABLE public."Diaries" ADD COLUMN "index" integer NOT NULL;

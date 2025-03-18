@@ -1,5 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
+
 .App {
   text-align: center;
+  font-family: DotGothic16, sans-serif;
+  background: #DEEEFA;
+  min-height: 100vh; /* 画面全体に背景を適用 */
+  color: #1C5B88;
+  font-weight: bold;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #DEEEFA;
 }
 
 .App-logo {
@@ -13,15 +25,87 @@
   }
 }
 
-.App-header {
-  background-color: #282c34;
+/* ヘッダーを固定表示し、横幅を全体にする */
+.app-header {
+  position: fixed;        /* 固定表示 */
+  top: 0;                 /* 画面上部に固定 */
+  left: 0;
+  width: 100%;            /* 横幅いっぱいに */
+  height: 60px;           /* ヘッダーの高さ */
+  display: flex;          /* 横並びに要素を配置 */
+  align-items: center;    /* 縦方向の中央揃え */
+  background-color: #B4E0F8;/* 背景色など自由に設定 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0 20px;
+  z-index: 999;           /* コンテンツの上に重ねるためにz-indexを設定 */
+}
+
+/* アイコン画像のサイズ調整やスペースを追加 */
+.app-icon {
+  height: 40px; 
+  margin-right: 10px; 
+}
+
+/* アプリ名のスタイル */
+.app-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #E6566C;
+}
+
+.h1 {
+  color: #E6566C;
+}
+
+/* 
+   ヘッダーが固定表示のため、
+   ページ全体の上部の余白が無いと
+   コンテンツがヘッダーの裏に隠れます。 
+   ↓コンテンツに余白を持たせるための対策例
+*/
+body {
+  margin: 0;
+  padding-top: 60px; /* ヘッダーと同じ高さ分、コンテンツを下げる */
+}
+
+
+/* ul を横並びにする */
+nav ul {
+  display: flex;   /* 横並び */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 16px;      /* ボタンの間隔を 16px に設定 */
+}
+
+.App-body {
+  background: #DEEEFA;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #1C5B88;
+}
+
+/* リンクボタンのスタイル */
+.button-link {
+  display: inline-block;
+  text-decoration: none;
+  background-color: transparent;
+  color: #1C5B88;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 8px 16px;
+  border: 2px solid #1C5B88;
+  border-radius: 6px;
+  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.button-link:hover {
+  background-color: #61dafb;
+  color: #ffffff;
 }
 
 .App-link {
@@ -35,4 +119,145 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* スクロール領域を確保 */
+.diary-list-container {
+  width: 300px;        /* お好みで調整 */
+  max-height: 400px;   /* これを超えると縦スクロール */
+  overflow-y: auto;    /* 縦方向にスクロール可能にする */
+  margin: 0 auto;      /* 中央寄せしたい場合 */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+/* ul のデフォルトスタイルをリセット＆縦方向に並べる */
+.diary-list {
+  list-style-type: none; 
+  padding: 0;
+  margin: 0;
+}
+
+/* カード風のスタイル */
+.diary-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin: 8px 0;
+  padding: 16px;
+  text-align: left;
+  transition: box-shadow 0.2s ease;
+  color: #1C5B88;
+}
+
+.diary-card:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* リンクの装飾（色等を適宜調整） */
+.diary-card a {
+  text-decoration: none;
+  color: #1C5B88;
+  font-size: 16px;
+}
+
+/* ボタン風リンク */
+.button-link {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 8px 16px;
+  background-color: #B4E0F8;
+  color: #1C5B88;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.button-link:hover {
+  background-color: #3355aa;
+}
+
+.profile-edit-container {
+  max-width: 500px;  /* フォームの最大幅 */
+  width: 80%;  /* 親の80%のサイズ */
+  margin: 50px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.profile-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* フォーム項目の間隔 */
+  align-items: center;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 16px; /* ラベルとテキストボックスの間隔 */
+}
+
+.form-group label {
+  font-size: 16px;
+  font-weight: bold;
+  min-width: 120px;  /* ラベルの最小幅を確保 */
+  max-width: 25%; /* 最大幅を25%に設定し、長すぎる場合でもバランスを保つ */
+  text-align: right;
+  white-space: nowrap; /* 必ず1行にする */
+  overflow: hidden; /* はみ出る部分を隠す */
+  text-overflow: ellipsis; /* 長いテキストは省略記号 (…) をつける */
+  flex-shrink: 0; /* ラベルのサイズを縮小させない */
+}
+
+.form-group input {
+  flex-grow: 1; /* 入力欄をラベルの幅に応じて調整 */
+  max-width: 75%; /* 親の80%の枠内で調整 */
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%;
+}
+
+.submit-button {
+  background: #007bff;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 100%;
+  max-width: 80%;
+  margin-top: 20px;
+}
+
+.submit-button:hover {
+  background: #0056b3;
+}
+
+.submit-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.form-group select {
+  flex-grow: 1; /* 入力欄の幅を統一 */
+  padding: 10px; /* inputと同じpadding */
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px; /* 角を丸める */
+  font-size: 16px;
+  width: 100%;
+  height: 40px; /* inputと同じ高さ */
+  background-color: white;
+  appearance: none; /* デフォルトの矢印を消す */
+  cursor: pointer;
 }

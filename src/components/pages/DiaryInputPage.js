@@ -1,88 +1,88 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Volume2, VolumeX } from 'lucide-react';
 import useAudioRecorder from '../../hooks/useAudioRecorder';
-
-// ランダム表示したいアイコンの候補
-const ICONS = ['👍', '❤️', '🌈', '✨', '👏', '👼', '🥹', '🎊', '🙌'];
+import '../../App.css';
 
 const DiaryInputPage = () => {
-  // UI 用のステート
-  const [icon, setIcon] = useState(null);
-  const [face, setFace] = useState('(・_・)');
-  const [diary, setDiary] = useState('');
+  const [face, setFace] = useState('/images/kairu_normal.gif');
+  const [transcript, setTranscript] = useState('');
 
-  /**
-   * ランダムなアイコンを1秒間だけ表示する
-   */
-  const showRandomIcon = () => {
-    const random = Math.floor(Math.random() * ICONS.length);
-    setIcon(ICONS[random]);
-    setTimeout(() => setIcon(null), 2000);
-  };
-
-  /**
-   * 音量に応じて表情を変化させる
-   */
   const updateFaceExpression = (level) => {
     if (level > 0.7) {
-      setFace('*･゜ﾟ･*:.｡..｡.:*･(*ﾟ▽ﾟ*)･*:.｡. .｡.:*･゜ﾟ･*');
-    } else if (level > 0.5) {
-      setFace('ヾ(๑╹◡╹)ﾉ"');
-    } else if (level > 0.05) {
-      setFace('（＾Ｏ＾☆♪');
+      setFace('/images/kairu_happy.gif');
     } else {
-      setFace('(・_・)');
+      setFace('/images/kairu.png');
     }
   };
 
-  // カスタムフックの利用
-  const { recording, audioLevel, transcript, setTranscript, startRecording, stopRecording } = useAudioRecorder({
-    onSilence: showRandomIcon
-  });
 
-  // 音量レベルの変化に伴い表情を更新
+  const { recording, startRecording, stopRecording, audioLevel, transcript: recordedTranscript } = useAudioRecorder({});
+
   useEffect(() => {
+    
+    if (recordedTranscript) {
+      setTranscript(recordedTranscript);
+    }
+  }, [recordedTranscript]);
+  
+  
+  useEffect(() => {
+    console.log(audioLevel);
     updateFaceExpression(audioLevel);
   }, [audioLevel]);
 
   return (
-    <div>
-      <h1>Diary Input</h1>
-      <p>ここで音声を入力</p>
+    <div className="App-body">
+      <h1>今日の日記を作成</h1>
 
-      {!recording ? (
-        <button onClick={startRecording}>Start Recording</button>
-      ) : (
-        <button onClick={stopRecording}>Stop Recording</button>
-      )}
+      {/* transcript のリアルタイム表示（編集可能にする） */}
+      <label htmlFor="transcript">Transcript:</label><br />
+      <textarea
+        id="transcript"
+        name="transcript"
+        rows="4"
+        cols="50"
+        value={transcript}
+        onChange={(e) => setTranscript(e.target.value)}
+      />
 
-      <div>
-        <strong>Transcript:</strong>
-        <textarea 
-          style={{ width: '100%', height: '100px' }} 
-          disabled={recording} 
-          onChange={e => { setTranscript(e.target.value) }} 
-          value={transcript}
-        />
-      </div>
 
-      {/* 顔とアイコンを横並びにして、アイコンを右に配置 */}
-      <div style={{ display: 'flex', alignItems: 'center', fontSize: '2rem', margin: '1rem 0' }}>
-        <div>{face}</div>
-        {icon && (
-          <div style={{ marginLeft: '1rem' }}>{icon}</div>
-        )}
-      </div>
-
-      <Link 
-        to="/diaries/:id/edit" 
-        onClick={() => sessionStorage.setItem('transcript', transcript)}
-      >
-        Create
+      {/* --- ここに「送信ボタン」を配置 --- */}
+      <Link to="/diaries/edit" className="button-link" style={{ marginTop: '1rem', display: 'inline-block' }}>
+        送信
       </Link>
+
+      {/* ミュートボタンを左・イルカの画像を右に配置 */}
+      <div style={{ display: 'flex', flexDirection: 'row-reverse', alignItems: 'flex-end', margin: '1rem 0' }}>
+        {/* イルカの画像 */}
+        <img
+          src={face}
+          alt="可愛いイルカ"
+          style={{ width: '200px', height: '200px' }}
+        />
+
+
+        {/* ミュートボタン（左側に配置） */}
+        <button
+          onClick={recording ? stopRecording : startRecording}
+          className="button-link"
+          style={{ marginRight: '1rem' }}
+        >
+          {recording ? (
+            <Volume2 size={20} />
+          ) : (
+            <VolumeX size={20} />
+          )}
+        </button>
+      </div>
+
+
+      {/* 「Back to Diary List」へのリンクはそのまま残す */}
+
       <nav>
         <ul>
-          <li><Link to="/diaries">Back to Diary List</Link></li>
+          <li><Link to="/diaries" className="button-link">Homeに戻る</Link></li>
         </ul>
       </nav>
     </div>

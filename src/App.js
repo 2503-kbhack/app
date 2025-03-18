@@ -13,18 +13,25 @@ import WeeklySummary from './components/pages/WeeklysummaryPage';
 import PrivateRoute from './hooks/PrivateRoute';
 import { AuthProvider } from './hooks/AuthContext';
 import './App.css';
+import AppHeader from './components/pages/AppHeader'; // ヘッダー
+
 
 function App() {
   console.count('App.js');
   
   return (
-    <AuthProvider>
-      <Router>
-        <Routes>
-          {/* 公開ルート */}
-          <Route path="/" element={<LoginPage />} />
-          {/* 保護したいルート群を PrivateRoute でラップ */}
-          <Route element={<PrivateRoute />}>
+    <div className="App">
+     <AuthProvider>
+       <Router>
+
+         {/* ヘッダーを全ページ共通で表示する場合 */}
+         <AppHeader />  
+         <Routes>
+          
+           {/* 公開ルート */}
+           <Route path="/" element={<LoginPage />} />
+           {/* 保護したいルート群を PrivateRoute でラップ */}
+           <Route element={<PrivateRoute />}>
             <Route path="/profile" element={<ProfileCheckPage />} />          
             <Route path="/profile/create" element={<ProfileCreationPage />} />
             <Route path="/profile/edit" element={<ProfileEditPage />} />
@@ -34,10 +41,11 @@ function App() {
             <Route path="/diaries/new" element={<DiaryInputPage />} />
             <Route path="/diaries/:date" element={<DiaryDetailPage />} />
             <Route path="/diaries/:id/edit" element={<DiaryEditPage />} />
-          </Route>
-        </Routes>
-      </Router>
-    </AuthProvider>
+           </Route>
+         </Routes>
+       </Router>
+     </AuthProvider>
+    </div>
   );
 }
 

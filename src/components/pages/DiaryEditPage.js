@@ -4,6 +4,10 @@ import { useAuth } from '../../hooks/AuthContext';
 import { supabase } from '../../api/supabaseClient';
 import { useNavigate } from 'react-router-dom';
 
+import '../../App.css';
+import AppHeader from './AppHeader'; 
+
+
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const API_URL = process.env.REACT_APP_SUPABASE_URL;
 
@@ -88,8 +92,7 @@ const DiaryEditPage = () => {
     const { data, error } = await supabase
       .from('Diaries')
       .insert(diariesToInsert)
-      .select()
-      .single();
+      .select();
     
     if (error) {
       console.error('Error inserting diaries:', error);
@@ -101,7 +104,7 @@ const DiaryEditPage = () => {
   };
 
   return (
-    <div>
+    <div className="App-body"> {/* 新しいクラスを適用 */}
       <h1>Diary Edit</h1>
       <p>ここで書き起こしたテキストを修正</p>
 
@@ -152,7 +155,7 @@ const DiaryEditPage = () => {
         </>
       )}
 
-      
+
     </div>
   );
 };
