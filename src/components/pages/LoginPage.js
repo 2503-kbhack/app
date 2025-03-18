@@ -40,12 +40,19 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="login-container">
+    <div className="App-body">
       <h1>ログイン</h1>
       {error && <p className="error-message">{error}</p>}
-      <button onClick={signInWithDiscord} className="discord-login-button">
+      <button onClick={signInWithDiscord} className="button-link">
         Discord でログイン
       </button>
+
+      {/* イルカの画像 */}
+      <img
+          src="/images/kairu_normal.gif" 
+          alt="可愛いイルカ"
+          style={{ width: '200px', height: '200px', marginTop: '50px' }}
+        />
     </div>
   );
 };
