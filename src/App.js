@@ -37,7 +37,7 @@ function App() {
             <Route path="/summary" element={<WeeklySummary />} />
             <Route path="/diaries" element={<DiaryListPage />} />
             <Route path="/diaries/new" element={<DiaryInputPage />} />
-            <Route path="/diaries/:id" element={<DiaryDetailPage />} />
+            <Route path="/diaries/:date" element={<DiaryDetailPage />} />
             <Route path="/diaries/:id/edit" element={<DiaryEditPage />} />
            </Route>
          </Routes>
