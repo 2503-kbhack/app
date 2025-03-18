@@ -1,17 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/AuthContext';
 import '../../App.css';
 import AppHeader from './AppHeader'; 
+import {fetchDiaries} from '../../api/fetchDiaries';
+import useSWR from 'swr';
 
 function HomePage() {
   const { user, profile, loading } = useAuth();
+  const date = new Date().toLocaleDateString('ja-JP');
+  const oneWeekAgo = new Date();
+  oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+  const oneWeekAgoDate = oneWeekAgo.toLocaleDateString('ja-JP');
+
+  const { data, error } = useSWR('diaries', () => fetchDiaries({
+      author: user.id ,
+      startDate: oneWeekAgoDate,
+      endDate: date,
+     }));
   if (loading) {
     return <div className="diary-detail-page"> {/* 新しいクラスを適用 */}
                 読み込み中...</div>;
   }
-  console.log(profile);
+
+  console.log(data);
+  // const numberofDiaries = data.length;
+  // console.log("日記の数：",numberofDiaries);
   let active_rate = Math.random() * 100;  // TODO: アクティブ率を計算する
+  if (data) {
+    active_rate = data.length / 30 * 100;
+  }
+  
   return (
     <div className="App-body"> {/* 新しいクラスを適用 */}
       <h1 className="h1">ホーム</h1>
