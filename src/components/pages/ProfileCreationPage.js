@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { supabase } from '../../api/supabaseClient'; // パスはプロジェクトに合わせて変更
 import { useAuth } from '../../hooks/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import '../../App.css';
+
 
 const ProfileCreationPage = () => {
   const { user, setProfile } = useAuth();
@@ -61,7 +63,7 @@ const ProfileCreationPage = () => {
   };
 
   return (
-    <div>
+    <div className="App-body"> {/* 新しいクラスを適用 */}
       <h2>プロフィール作成</h2>
       {message && <p>{message}</p>}
       <form onSubmit={handleSubmit}>
@@ -99,7 +101,7 @@ const ProfileCreationPage = () => {
             <option value="female">female</option>
           </select>
         </div>
-        <button type="submit" disabled={loading}>
+        <button type="submit" disabled={loading} className="button-link">
           {loading ? '送信中...' : 'プロフィール作成'}
         </button>
       </form>

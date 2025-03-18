@@ -1,8 +1,12 @@
 // DiaryListPage.jsx
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
 import { useAuth } from '../../hooks/AuthContext';
 import { fetchDiaries } from '../../api/fetchDiaries';
+
+import '../../App.css';
+import AppHeader from './AppHeader';
 
 const DiaryListPage = () => {
   const { user } = useAuth();
@@ -38,6 +42,7 @@ const DiaryListPage = () => {
   );
 
   return (
+
     <div>
       <h1>Diary List</h1>
       <p>日記一覧</p>
@@ -71,6 +76,9 @@ const DiaryListPage = () => {
       <Link to="/diaries/new">New Diary</Link>
       <br />
       <Link to="/home">Back to Home</Link>
+
+
+
     </div>
   );
 };

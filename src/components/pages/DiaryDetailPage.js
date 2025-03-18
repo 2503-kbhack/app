@@ -61,6 +61,7 @@ const DiaryDetailPage = (props) => {
       <br />
       <Link to="/">Back to Home</Link>
     </div>
+
   );
 };
 

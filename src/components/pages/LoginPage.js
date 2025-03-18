@@ -1,7 +1,10 @@
 // LoginPage.jsx
-import React, { useState,useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../api/supabaseClient';
+import '../../App.css';
+
+
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -17,9 +20,6 @@ const LoginPage = () => {
       if (error || !data.session) {
         // 認証に失敗している場合はログインページにリダイレクト
         console.log(error);
-      } else {
-        // 認証に成功している場合はホームページなどへ
-        navigate('/profile');
       }
     });
   }, [navigate]);
@@ -29,7 +29,7 @@ const LoginPage = () => {
 
   const signInWithDiscord = async () => {
     console.log('Discord ログイン処理');
-    const { data,error } = await supabase.auth.signInWithOAuth({
+    const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'discord',
       options: { redirectTo: `${BASE_URL}/home` },
     });
@@ -40,12 +40,19 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="login-container">
+    <div className="App-body">
       <h1>ログイン</h1>
       {error && <p className="error-message">{error}</p>}
-      <button onClick={signInWithDiscord} className="discord-login-button">
+      <button onClick={signInWithDiscord} className="button-link">
         Discord でログイン
       </button>
+
+      {/* イルカの画像 */}
+      <img
+          src="/images/kairu_normal.gif" 
+          alt="可愛いイルカ"
+          style={{ width: '200px', height: '200px', marginTop: '50px' }}
+        />
     </div>
   );
 };
