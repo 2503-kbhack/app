@@ -27,7 +27,7 @@ const DiaryDetailPage = (props) => {
       <p>{diary[0].contents}</p>
       <Link to={`/diaries`}>Back to Diaries </Link>
       <br />
-      <Link to={`/home`}>Back to Home</Link>
+      <Link to={`/`}>Back to Home</Link>
       
      
     </div>
