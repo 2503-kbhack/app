@@ -31,7 +31,7 @@ const LoginPage = () => {
     console.log('Discord ログイン処理');
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'discord',
-      options: { redirectTo: `${BASE_URL}/home` },
+      options: { redirectTo: `${BASE_URL}/profile` },
     });
     if (error) {
       console.error('Discord ログインエラー:', error.message);
