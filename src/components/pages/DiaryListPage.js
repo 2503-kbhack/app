@@ -42,7 +42,7 @@ const DiaryListPage = () => {
         </ul>
       </div>
 
-      <Link to={`/`} className="button-link">Homeに戻る</Link>
+      <Link to={`/home`} className="button-link">Homeに戻る</Link>
     </div>
   );
 };
