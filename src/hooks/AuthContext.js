@@ -66,20 +66,20 @@ export const AuthProvider = ({ children }) => {
   };
 
   fetchSession();
-  setLoading(false);
-    // 認証状態の変更を監視
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      const sessionUser = session?.user;
-      if (sessionUser) {
-        setUser({
-          id: sessionUser.id,
-          email: sessionUser.email,
-        });
-      } else {
-        setUser(null);
-      }
-    });
-
+  // 認証状態の変更を監視
+  const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+    const sessionUser = session?.user;
+    if (sessionUser) {
+      setUser({
+        id: sessionUser.id,
+        email: sessionUser.email,
+      });
+    } else {
+      setUser(null);
+    }
+    setLoading(false);
+  });
+  
     return () => {
       authListener.subscription.unsubscribe();
     };

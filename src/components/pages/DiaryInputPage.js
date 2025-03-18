@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Volume2, VolumeX } from 'lucide-react';
 import useAudioRecorder from '../../hooks/useAudioRecorder';
+
 import '../../App.css';
 
 const DiaryInputPage = () => {
   const [face, setFace] = useState('/images/jitrvOHWDbtU1aIrfoUQ1742202113-1742202203.gif');
   const [transcript, setTranscript] = useState('');
   const [muted, setMuted] = useState(false);
+
 
   const updateFaceExpression = (level) => {
     if (level > 0.7) {
@@ -17,6 +19,7 @@ const DiaryInputPage = () => {
     }
   };
 
+
   const { audioLevel, transcript: recordedTranscript } = useAudioRecorder({});
 
   useEffect(() => {
@@ -24,6 +27,7 @@ const DiaryInputPage = () => {
       setTranscript(recordedTranscript);
     }
   }, [recordedTranscript]);
+
 
   useEffect(() => {
     updateFaceExpression(audioLevel);
@@ -49,6 +53,7 @@ const DiaryInputPage = () => {
         onChange={(e) => setTranscript(e.target.value)}
       />
 
+
       {/* --- ここに「送信ボタン」を配置 --- */}
       <Link to="/diaries/:id/edit" className="button-link" style={{ marginTop: '1rem', display: 'inline-block' }}>
         送信
@@ -64,6 +69,7 @@ const DiaryInputPage = () => {
           style={{ width: '200px', height: '200px' }}
         />
 
+
         {/* ミュートボタン（左側に配置） */}
         <button
           onClick={toggleMute}
@@ -78,7 +84,9 @@ const DiaryInputPage = () => {
         </button>
       </div>
 
+
       {/* 「Back to Diary List」へのリンクはそのまま残す */}
+
       <nav>
         <ul>
           <li><Link to="/diaries" className="button-link">Homeに戻る</Link></li>

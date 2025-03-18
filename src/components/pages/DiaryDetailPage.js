@@ -1,41 +1,37 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
-import '../../App.css';
-import AppHeader from './AppHeader';
-import diaries from '../../data/DiaryData';
-// 日記データをインポート
-
-const DiaryDetailPage = () => {
-  // URLの「:id」部分を取得する
+import React ,{useState,useEffect} from 'react';
+import { Link,useParams } from 'react-router-dom';
+import { fetchDiaries } from '../../api/fetchDiaries';
+const DiaryDetailPage = (props) => {
   const { id } = useParams();
+  const [diary, setDiary] = useState([]);
 
-  // 取得した id (文字列) を数値に変換し、該当する日記オブジェクトを検索
-  const diary = diaries.find(d => d.id === parseInt(id, 10));
+  
+  useEffect(() => {
+    // コンポーネントがマウントされた時に実行
+    const getDiary = async () => {
+      const data = await fetchDiaries({ id: id });
+      if (data) {
+        setDiary(data);
+      }
+    };
 
-  // 万が一、該当の日記が見つからない場合
-  if (!diary) {
-    return (
-      <>
-        <AppHeader />
-        <div className="App-body">
-          <h1>Diary Not Found</h1>
-          <Link to={`/`} className="button-link">Back to Home</Link>
-        </div>
-      </>
-    );
+    getDiary();
+  }, []);
+  
+  if (!diary[0]) {
+    return <div>読み込み中</div>;
   }
-
-  // 正常に見つかった場合はタイトルとコンテンツを表示
   return (
-    <>
-      <AppHeader />
-      <div className="App-body">
-        <h1>{diary.title}</h1>
-        <p>{diary.content}</p>
-        <Link to={`/`} className="button-link">Back to Home</Link>
-      </div>
-    </>
+    <div>
+      <h1>{diary[0].title}</h1>
+      <p>{diary[0].contents}</p>
+      <Link to={`/diaries`}>Back to Diaries </Link>
+      <br />
+      <Link to={`/`}>Back to Home</Link>
+      
+     
+    </div>
+
   );
 };
 
