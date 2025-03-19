@@ -18,7 +18,8 @@ const DiaryembeddingPage =  (data) => {
   //   is_important: item.isImportant,
   //   index: diaryItems.indexOf(item),
   // }
-  const diaries= data.map((item) => {
+  const dataarray= Array.from(data);
+  const diaries= dataarray.map((item) => {
     return {
       id : item.id,
       contents: item.contents,
