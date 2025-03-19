@@ -45,19 +45,19 @@ function HomePage() {
           <img
             src="/images/kairu_normal.gif" 
             alt="可愛いイルカ"
-            style={{ width: '150px', height: '150px', marginTop: '40px' }}
+            style={{ width: '150px', height: '150px', display: 'block',margin: '40px auto' }}
           />
         ) : active_rate > 60 ? (
           <img
             src="/images/kairu_happy.gif" 
             alt="可愛いイルカ"
-            style={{ width: '150px', height: '150px', marginTop: '40px' }}
+            style={{ width: '150px', height: '150px', display: 'block',margin: '40px auto' }}
           />
         ) : (
           <img
             src="/images/kairu_sad.gif" 
             alt="可愛いイルカ"
-            style={{ width: '150px', height: '150px', marginTop: '40px' }}
+            style={{ width: '150px', height: '150px', display: 'block',margin: '40px auto' }}
           />
         )
       }

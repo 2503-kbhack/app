@@ -54,35 +54,36 @@ const DiaryInputPage = () => {
         className="transcript-box"
       />
 
-
-      {/* --- ここに「送信ボタン」を配置 --- */}
       
 
-      {/* ミュートボタンを左・イルカの画像を右に配置 */}
-      <div style={{ display: 'flex', flexDirection: 'row-reverse', alignItems: 'flex-end', margin: '1rem 0' }}>
-        {/* イルカの画像 */}
-        <img
-          src={face}
-          alt="可愛いイルカ"
-          style={{ width: '200px', height: '200px' }}
-        />
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  {/* ミュートボタンを左・イルカの画像を右に配置 */}
+  <div style={{ display: 'flex', flexDirection: 'row-reverse', alignItems: 'flex-end', margin: '1rem 0' }}>
+    {/* イルカの画像 */}
+    <img
+      src={face}
+      alt="可愛いイルカ"
+      style={{ width: '200px', height: '200px' }}
+    />
 
+    {/* ミュートボタン（左側に配置） */}
+    <button
+      onClick={recording ? stopRecording : startRecording}
+      className="mic-button"
+      style={{ marginRight: '1rem' }}
+    >
+      {recording ? (
+        <Volume2 size={20} />
+      ) : (
+        <VolumeX size={20} />
+      )}
+    </button>
+  </div>
+</div>
 
-        {/* ミュートボタン（左側に配置） */}
-        <button
-          onClick={recording ? stopRecording : startRecording}
-          className="mic-button"
-          style={{ marginRight: '1rem' }}
-        >
-          {recording ? (
-            <Volume2 size={20} />
-          ) : (
-            <VolumeX size={20} />
-          )}
-        </button>
-      </div>
+    
 
-
+    
       {/* 「Back to Diary List」へのリンクはそのまま残す */}
 
       <nav>

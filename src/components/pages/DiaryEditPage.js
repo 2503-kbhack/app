@@ -107,53 +107,52 @@ const DiaryEditPage = () => {
 
   return (
     <div className="App-body"> {/* 新しいクラスを適用 */}
-      <h1 className="h1">Diary Edit</h1>
-      <p>ここで書き起こしたテキストを修正</p>
+      <h1 className="h1">日記登録ページ</h1>
+      <p>カイルくんのまとめを修正</p>
 
       {isLoading ? (
-        <p>Loading...</p>
+        <p>カイルくんが考え中...🐬🐬🐬</p>
       ) : (
         <>
-          <ul>
-            {diaryItems.map((item, index) => (
-              <li key={index} style={{ marginBottom: '1rem' }}>
-                {/* タイトル編集欄 */}
-                <div>
-                  <label>タイトル: </label>
-                  <input
-                    type="text"
-                    value={item.title}
-                    onChange={(e) => handleTitleChange(index, e.target.value)}
-                  />
-                </div>
+          <ul className="diary-list">
+  {diaryItems.map((item, index) => (
+    <li key={index} className="diary-item">
+      {/* タイトル編集欄 */}
+      <div className="field">
+        <label className="label">タイトル</label>
+        <input
+          type="text"
+          value={item.title}
+          onChange={(e) => handleTitleChange(index, e.target.value)}
+        />
+        
+      </div>
 
-                {/* 本文編集欄 */}
-                <div style={{ marginTop: '4px' }}>
-                  <label>本文: </label>
-                  <textarea
-                    rows={3}
-                    cols={30}
-                    value={item.body}
-                    onChange={(e) => handleBodyChange(index, e.target.value)}
-                  />
-                </div>
+      {/* 本文編集欄 */}
+      <div className="field">
+        <label className="label">本文:</label>
+        <textarea
+          value={item.body}
+          onChange={(e) => handleBodyChange(index, e.target.value)}
+        />
+      </div>
 
-                {/* 重要イベント選択欄 */}
-                <div style={{ marginTop: '4px' }}>
-                  <label>
-                    <input
-                      type="checkbox"
-                      checked={item.isImportant}
-                      onChange={() => handleImportantChange(index)}
-                    />
-                    一日を代表するイベント
-                  </label>
-                </div>
-              </li>
-            ))}
-          </ul>
+      {/* 重要イベント選択欄 */}
+      <div className="checkbox-container">
+        <input
+          type="checkbox"
+          checked={item.isImportant}
+          onChange={() => handleImportantChange(index)}
+
+        />
+        <label>今日のベスト日記</label>
+      </div>
+    </li>
+  ))}
+</ul>
+
          
-          <button type="button" onClick={handleSubmit}>Submit</button>
+          <button type="button" className="button-link" onClick={handleSubmit}>提出</button>
         </>
       )}
 
