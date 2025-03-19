@@ -30,7 +30,8 @@
     "edge:dev": "npx supabase functions serve --no-verify-jwt --env-file .env",
     "edge:serve": "npx supabase functions serve --env-file .env",
     "edge:generate-diary": "ts-node scripts/debug/generate-diary.ts",
-    "edge:summerize-weekly-diary": "ts-node scripts/debug/summerize-weekly-diary.ts"
+    "edge:summerize-weekly-diary": "ts-node scripts/debug/summerize-weekly-diary.ts",
+    "edge:text-embedding": "ts-node scripts/debug/text-embedding.ts"
   },
   "eslintConfig": {
     "extends": [

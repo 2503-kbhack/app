@@ -9,7 +9,7 @@ const API_URL = process.env.REACT_APP_SUPABASE_URL;
 
 const WeeklySummary = () => {
   const { user, profile ,setIsLoading} = useAuth();
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState({weeklySummary: 'カイルくんが考え中...'});
   const [diaries, setDiaries] = useState([]);
   const date = new Date().toLocaleDateString('ja-JP');
   const oneWeekAgo = new Date();
@@ -100,12 +100,14 @@ const WeeklySummary = () => {
   // }
   return (
     <div>
-      <h1>Weekly Summary</h1>
+      <h1 className="h1">ふりかえりレター</h1>
       <p>カイル君と１週間の振り返り🐬</p>
       <img src="/images/kairu_happy.gif" alt="可愛いイルカ" width={200} height={200} />
+      <div className="letter">
       <p>{comment.weeklySummary}</p>
       <p>{comment.weeklyReflection}</p>
       <p>{comment.comment}</p>
+      </div>
       <Link to="/home" className="button-link" style={{ marginTop: '1rem', display: 'inline-block' }}>ホームに戻る</Link>
     </div>
   );
