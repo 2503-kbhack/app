@@ -5,7 +5,7 @@ import useAudioRecorder from '../../hooks/useAudioRecorder';
 import '../../App.css';
 
 const DiaryInputPage = () => {
-  const [face, setFace] = useState('/images/kairu_normal_mic.gif');
+  const [face, setFace] = useState('/images/kairu_normal_mic.png');
   const [transcript, setTranscript] = useState('');
   const navigate = useNavigate();
   
