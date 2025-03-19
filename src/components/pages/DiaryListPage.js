@@ -21,7 +21,7 @@ const DiaryListPage = () => {
     };
 
     getDiaries();
-  }, [user]);
+  }, []);
 
   const groupedDiaries = diaries.reduce((groups, diary) => {
     // created_at を取得し、15時間（ミリ秒換算）を引いてシフト
