@@ -119,27 +119,29 @@ const DiaryEditPage = () => {
         <p>Loading...</p>
       ) : (
         <>
-          <ul>
+          <ul style={{ padding: 0 }}>
             {diaryItems.map((item, index) => (
-              <li key={index} style={{ marginBottom: '1rem' }}>
+              <li key={index} style={{ marginBottom: '1rem', listStyleType: 'none' }}>
                 {/* タイトル編集欄 */}
                 <div>
-                  <label>タイトル: </label>
+                  <label>タイトル</label><br />
                   <input
                     type="text"
                     value={item.title}
                     onChange={(e) => handleTitleChange(index, e.target.value)}
+                    className='edit-input'
                   />
                 </div>
 
                 {/* 本文編集欄 */}
                 <div style={{ marginTop: '4px' }}>
-                  <label>本文: </label>
+                  <label>本文</label><br />
                   <textarea
                     rows={3}
                     cols={30}
                     value={item.body}
                     onChange={(e) => handleBodyChange(index, e.target.value)}
+                    className='edit-textarea'
                   />
                 </div>
 
@@ -151,14 +153,15 @@ const DiaryEditPage = () => {
                       checked={item.isImportant}
                       onChange={() => handleImportantChange(index)}
                     />
-                    一日を代表するイベント
+                    一日を代表するイベントですか？
                   </label>
                 </div>
+                <hr />
               </li>
             ))}
           </ul>
          
-          <button type="button" onClick={handleSubmit}>Submit</button>
+          <button type="button" onClick={handleSubmit} className='edit-submit'>日記を作成する！</button>
         </>
       )}
 

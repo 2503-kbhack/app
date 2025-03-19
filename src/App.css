@@ -431,3 +431,33 @@ nav {
   width: 80%;
 }
 
+.edit-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.edit-textarea {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 10px;
+  min-height: 200px;
+}
+
+.edit-submit {
+  background-color: #B4E0F8;
+  border: 2px solid #1C5B88;
+  color: #1C5B88;
+  font-family: DotGothic16, sans-serif;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 80%;
+  margin-top: 20px;
+}
