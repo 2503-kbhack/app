@@ -1,3 +1,5 @@
+import { supabase } from "./supabaseClient";
+
 async function textEmbedding(textsarray1) {
     const API_URL = process.env.REACT_APP_SUPABASE_URL;
     const url = `${API_URL}/functions/v1/text-embedding`;

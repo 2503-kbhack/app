@@ -28,8 +28,12 @@ Deno.serve(async (req) => {
   }
 
   // リクエストボディのパースとバリデーション
+<<<<<<< HEAD
   const { text } = await req.json()
   console.log("text", text)
+=======
+  const  {text}  = await req.json()
+>>>>>>> 352e300fbb93c93b0803f5dc5acc72d311bb2abc
   if (!text || typeof text !== "string" || text.trim().length === 0) {
     return new Response(
       JSON.stringify({ error: "text is required" }),
@@ -39,10 +43,19 @@ Deno.serve(async (req) => {
 
   try {
     // テキストの埋め込みを取得
+<<<<<<< HEAD
     console.log("Embedding content:", text)
+=======
+
+>>>>>>> 352e300fbb93c93b0803f5dc5acc72d311bb2abc
     const result = await model.embedContent(text)
+    console.log("result:", result)
     const embedding = result.embedding.values
+<<<<<<< HEAD
     console.log("Embedding:", embedding)
+=======
+    console.log("embedding:", embedding)
+>>>>>>> 352e300fbb93c93b0803f5dc5acc72d311bb2abc
 
     return new Response(JSON.stringify({ embedding }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" }

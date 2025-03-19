@@ -3,13 +3,14 @@ import { useAuth } from "../../hooks/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState, } from "react";
 import useSWR from "swr";
+import { supabase } from "../../api/supabaseClient";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const API_URL = process.env.REACT_APP_SUPABASE_URL;
 
 const WeeklySummary = () => {
   const { user, profile ,setIsLoading} = useAuth();
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState({weeklySummary: 'カイルくんが考え中...'});
   const [diaries, setDiaries] = useState([]);
   const date = new Date().toLocaleDateString('ja-JP');
   const oneWeekAgo = new Date();
@@ -65,14 +66,22 @@ const WeeklySummary = () => {
       diaries.sort((a, b) => new Date(a.date) - new Date(b.date));
       const diariesandprofiles = {diaries, profileData};
       console.log(diariesandprofiles);
-      fetch(`${API_URL}/functions/v1/summerize-weekly-diary`, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ diariesandprofiles}),
-      })
+
+      (async () => {
+        const res = await supabase.auth.getSession();
+        const accessToken = res.data.session.access_token;
+
+        const response = fetch(`${API_URL}/functions/v1/summerize-weekly-diary`, {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify({ diariesandprofiles}),
+        })
+        return response;
+      })()
         .then((response) => {
           if (!response.ok) {
             throw new Error('Failed to generate diary');
@@ -100,12 +109,14 @@ const WeeklySummary = () => {
   // }
   return (
     <div>
-      <h1>Weekly Summary</h1>
+      <h1 className="h1">ふりかえりレター</h1>
       <p>カイル君と１週間の振り返り🐬</p>
       <img src="/images/kairu_happy.gif" alt="可愛いイルカ" width={200} height={200} />
+      <div className="letter">
       <p>{comment.weeklySummary}</p>
       <p>{comment.weeklyReflection}</p>
       <p>{comment.comment}</p>
+      </div>
       <Link to="/home" className="button-link" style={{ marginTop: '1rem', display: 'inline-block' }}>ホームに戻る</Link>
     </div>
   );
