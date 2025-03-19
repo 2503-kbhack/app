@@ -45,41 +45,42 @@ const DiaryDetailPage = (props) => {
 
   return (
     <div>
-      <h1 className="h1">{date} の日記詳細</h1>
-      {diaries.map((diary) => (
+      <h1 className="h1">{date}</h1>
+      {/* ここでカードを 1 枚だけ作る */}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
         <div
-          key={diary.id}
           style={{
-            display: 'flex', // フレックスボックスを有効化
-            justifyContent: 'center', // 水平方向の中央寄せ
-            alignItems: 'center', // 垂直方向の中央寄せ
-            
+            border: '1px solid #ccc',
+            borderRadius: '4px',
+            padding: '1rem',
+            marginBottom: '0.5rem',
+            width: '80%',
+            maxWidth: '600px',
+            backgroundColor: '#fff',
+            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
           }}
         >
-          <div
-    style={{
-      border: '1px solid #ccc',
-      borderRadius: '4px',
-      padding: '1rem',
-      marginBottom: '0.5rem', // ここを小さくする
-      width: '80%',
-      maxWidth: '600px', // 最大幅を設定するとバランスがよくなる
-      backgroundColor: '#fff',
-      boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
-    }}
-  >
-    <h2 style={{ textAlign: 'center' }}>{diary.title}</h2>
-    <p>{diary.contents}</p>
-  </div>
+          {/* diaries の内容をひとつのカード内に並べて表示 */}
+          {diaries.map((diary) => (
+            <div key={diary.id} style={{ marginBottom: '1rem' }}>
+              <h3 style={{ textAlign: 'left' }}>{diary.title}</h3>
+              <p style={{ textAlign: 'left' }}>{diary.contents}</p>
+              {/* 必要に応じて区切り線などを入れても良い */}
+              {/* <hr /> */}
+            </div>
+          ))}
         </div>
-      ))}
-      <div className="link-container">
-      <Link to="/diaries" className="button-link">日記一覧に戻る</Link>
-      <Link to="/home" className="button-link">ホームに戻る</Link>
       </div>
     </div>
-
-  );
-};
+    
+    
+      );
+}
 
 export default DiaryDetailPage;
