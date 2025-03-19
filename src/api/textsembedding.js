@@ -6,11 +6,13 @@ async function textEmbedding(textsarray1) {
     
   
     const embeddings =  await Promise.all(textsarray.map(async (text) => {
+      
       const payload = {
         text: text
         .trim()
       };
       try {
+        console.count('API call');
         const res = await fetch(url, {
           method: "POST",
           headers: {
@@ -18,15 +20,19 @@ async function textEmbedding(textsarray1) {
           },
           body: JSON.stringify(payload),
         });
+        console.log(res);
         const data = await res.json();
+        console.log(data);
+        console.log(data.embedding);
         return data.embedding;
       } catch (err) {
         console.error("Error :", err);
       }
     }
     ));
-    
+    console.log(embeddings);
     return embeddings;
   }
+   
   
 export default textEmbedding;

@@ -99,8 +99,7 @@ const DiaryEditPage = () => {
     } else {
       console.log('Diaries inserted successfully:', data);
 
-    navigate("/home", data);
-    // navigate("/diaries/embedding", data);
+    navigate("/diaries/embedding", {state: data});
     }
     
   };
