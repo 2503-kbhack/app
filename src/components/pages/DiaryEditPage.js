@@ -43,16 +43,21 @@ const DiaryEditPage = () => {
   console.log(transcript);
   useEffect(() => {
     console.log(transcript);
-    
-    fetch(`${API_URL}/functions/v1/generate-diary`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ transcript }),
-    })
-      .then((response) => {
+    (async () => {
+      const res = await supabase.auth.getSession();
+      const accessToken = res.data.session.access_token;
+      
+      const response = await fetch(`${API_URL}/functions/v1/generate-diary`, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({ transcript }),
+      });
+      return response;
+    })().then((response) => {
         if (!response.ok) {
           throw new Error('Failed to generate diary');
         }

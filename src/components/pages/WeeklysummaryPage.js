@@ -3,6 +3,7 @@ import { useAuth } from "../../hooks/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState, } from "react";
 import useSWR from "swr";
+import { supabase } from "../../api/supabaseClient";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const API_URL = process.env.REACT_APP_SUPABASE_URL;
@@ -65,14 +66,22 @@ const WeeklySummary = () => {
       diaries.sort((a, b) => new Date(a.date) - new Date(b.date));
       const diariesandprofiles = {diaries, profileData};
       console.log(diariesandprofiles);
-      fetch(`${API_URL}/functions/v1/summerize-weekly-diary`, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ diariesandprofiles}),
-      })
+
+      (async () => {
+        const res = await supabase.auth.getSession();
+        const accessToken = res.data.session.access_token;
+
+        const response = fetch(`${API_URL}/functions/v1/summerize-weekly-diary`, {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify({ diariesandprofiles}),
+        })
+        return response;
+      })()
         .then((response) => {
           if (!response.ok) {
             throw new Error('Failed to generate diary');
