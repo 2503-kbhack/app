@@ -39,8 +39,7 @@ function HomePage() {
   
   return (
     <div className="App-body"> {/* 新しいクラスを適用 */}
-      <h1 className="h1">ホーム</h1>
-      {
+          {
         active_rate <= 60 && active_rate >= 30 ? (
           <img
             src="/images/kairu_normal.gif" 

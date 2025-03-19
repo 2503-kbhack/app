@@ -55,16 +55,34 @@ const DiaryDetailPage = (props) => {
         }}
       >
         <div
-          style={{
-            border: '1px solid #ccc',
-            borderRadius: '4px',
-            padding: '1rem',
-            marginBottom: '0.5rem',
-            width: '80%',
-            maxWidth: '600px',
-            backgroundColor: '#fff',
-            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
-          }}
+  style={{
+    /* テキスト領域の余白を確保 */
+    padding: '1rem 1rem 1rem 3rem',
+    marginBottom: '0.5rem',
+    width: '80%',
+    maxWidth: '600px',
+    boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+    cursor: 'pointer',
+
+    /* 横罫ノート風の背景 */
+    backgroundColor: '#fff',
+    backgroundImage: `
+      　
+      /* 横方向の線を 25px 間隔で繰り返し表示 */
+      repeating-linear-gradient(
+        to bottom,
+            rgba(204, 204, 204, 0.3) 0, /* ここで透明度を調整 */
+    rgba(204, 204, 204, 0.3) 1px,
+
+        #ccc 0,
+        #ccc 1px,
+        transparent 1px,
+        transparent 24px
+      )
+    `,
+    /* 繰り返しのピッチを 25px として設定 */
+    backgroundSize: '100% 25px',
+  }}
         >
           {/* diaries の内容をひとつのカード内に並べて表示 */}
           {diaries.map((diary) => (
@@ -76,6 +94,13 @@ const DiaryDetailPage = (props) => {
             </div>
           ))}
         </div>
+
+
+      </div>
+      <div className="link-container">
+      <Link to="/home" className="button-link">ホームに戻る</Link>
+      <Link to="/diaries" className="button-link">日記一覧に戻る</Link>
+      
       </div>
     </div>
     

@@ -60,21 +60,38 @@ const DiaryListPage = () => {
             <div
               className="card"
               style={{
-                border: '1px solid #ccc',
-                borderRadius: '4px',
-                padding: '1rem',
-                marginBottom: '0.5rem',    // 上下の余白を狭める
-                width: '80%',
-                maxWidth: '600px',         // 最大幅を設定
-                backgroundColor: '#fff',
+                /* テキスト領域の余白を確保 */
+                padding: '1rem 1rem 1rem 3rem',
+                marginBottom: '1rem',
+                width: '60%',
+                maxWidth: '600px',
                 boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
-                cursor: 'pointer'
+                cursor: 'pointer',
+            
+                /* 横罫ノート風の背景 */
+                backgroundColor: '#fff',
+                backgroundImage: `
+                  　
+                  /* 横方向の線を 25px 間隔で繰り返し表示 */
+                  repeating-linear-gradient(
+                    to bottom,
+                        rgba(204, 204, 204, 0.3) 0, /* ここで透明度を調整 */
+                rgba(204, 204, 204, 0.3) 1px,
+            
+                    #ccc 0,
+                    #ccc 1px,
+                    transparent 1px,
+                    transparent 24px
+                  )
+                `,
+                /* 繰り返しのピッチを 25px として設定 */
+                backgroundSize: '100% 25px',
               }}
             >
-              <h2 style={{ textAlign: 'center' }}>{date}</h2>
+              <h2 style={{ textAlign: 'left' }}>{date}</h2>
               <ul>
                 {groupedDiaries[date].map((diary) => (
-                  <li key={diary.id}>{diary.title}</li>
+                  <p key={diary.id} style={{ textAlign: 'left' }}>{diary.title}</p>
                 ))}
               </ul>
             </div>

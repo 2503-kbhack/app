@@ -87,11 +87,11 @@ const DiaryInputPage = () => {
 
       <nav>
         <ul className="nav-links">
-          <li><Link to="/home" className="button-link">
-          Homeに戻る</Link></li>
-          <li>
+          <Link to="/home" className="button-link">
+          ホームに戻る</Link>
+          
           <button onClick={handleClick} className="button-link" style={{ marginTop: '1rem', display: 'inline-block' }}>送信</button>
-          </li>
+          
         </ul> 
       </nav>
     </div>
