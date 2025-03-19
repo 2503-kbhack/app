@@ -9,7 +9,7 @@ const API_URL = process.env.REACT_APP_SUPABASE_URL;
 
 const WeeklySummary = () => {
   const { user, profile ,setIsLoading} = useAuth();
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState({weeklySummary: 'カイルくんが考え中...'});
   const [diaries, setDiaries] = useState([]);
   const date = new Date().toLocaleDateString('ja-JP');
   const oneWeekAgo = new Date();
