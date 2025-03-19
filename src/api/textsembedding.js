@@ -29,4 +29,4 @@ async function textEmbedding(textsarray1) {
     return embeddings;
   }
   
-export default textEmbedding();
+export default textEmbedding;

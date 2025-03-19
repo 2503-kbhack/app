@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import '../../App.css';
 import AppHeader from './AppHeader'; 
 
-
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const API_URL = process.env.REACT_APP_SUPABASE_URL;
 
@@ -100,7 +99,8 @@ const DiaryEditPage = () => {
     } else {
       console.log('Diaries inserted successfully:', data);
 
-    navigate("/diaries/embedding", data);
+    navigate("/home", data);
+    // navigate("/diaries/embedding", data);
     }
     
   };
